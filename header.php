@@ -8,7 +8,6 @@ $databaseConnection = connectToDatabase();
 <html lang="en">
 <head>
     <title>NerdyGadgets</title>
-    <link rel="icon" href="Public/Img/NG.png" type="image/icon type">
 
     <!-- Javascript -->
     <script src="Public/JS/fontawesome.js"></script>
@@ -26,7 +25,7 @@ $databaseConnection = connectToDatabase();
 <div class="Background">
     <div class="row" id="Header">
         <div class="col-2"><a href="./" id="LogoA">
-                <div id="LogoImage"><img src="Public/Img/Nerdy.png" alt="Logo" class="logo"></div>
+                <div id="LogoImage"><img src="Public/Img/Banner_Logo.png" alt="Logo" class="logo"></div>
             </a></div>
         <div class="col-8" id="CategoriesBar">
             <ul id="ul-class">
@@ -48,7 +47,6 @@ $databaseConnection = connectToDatabase();
             </ul>
         </div>
 <!-- code voor US3: zoeken -->
-
         <ul id="ul-class-navigation">
             <li>
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Zoeken</a>
