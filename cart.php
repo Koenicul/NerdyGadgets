@@ -2,51 +2,65 @@
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
-if (isset($_GET['id'])){
-    $StockItem = getStockItem($_GET['id'], $databaseConnection);
-    $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
+
+if (isset($_POST["quantity"]) && isset($_POST["id"])) {
+    $cart = getCart();
+    $cart[$_POST["id"]] = $_POST["quantity"];
+    $quantity = $_POST["quantity"];
+    saveCart($cart);
 }
 ?>
-<!DOCTYPE html>
-<html lang="nl">
-<head>
+
 <h1>Inhoud Winkelwagen</h1>
-<table>
-    <tr>
-        <th>Naam</th>
-        <th>Hoeveelheid</th>
-        <th>Prijs</th>
-    </tr>
-    <?php
-    $cart = getCart();
-    $totaalprijs = 0;
-    //gegevens per artikelen in $cart (naam, prijs, etc.) uit database halen
-    //totaal prijs berekenen
-    //mooi weergeven in html
-    //etc.
-    foreach ($cart as $key => $row){
-        $prijs = 0;
-        print("<tr>
-            <td><a href='view.php?id=$key'>Product $key</a></td>
-            <td>$row</td>
-            <td>$prijs</td>
-        </tr>");
-
-        $totaalprijs += $prijs;
-        }
-    print("<tr>
-            <td>Totaalprijs:</td>
-            <td> </td>
-            <td>$totaalprijs</td>
-        </tr>");
-
-    if (isset($_POST["nummer"])){
-        $nummer = $_POST["nummer"];
-        header('Location: '. "view.php?id=$nummer");
-        die();
-
-    }
+<?php
+if (isset($_SESSION['cart'])) {
+$cart = getCart();
+foreach ($cart as $id => $quantity) {
+    $StockItem = getStockItem($id, $databaseConnection);
+    $StockItemImage = getStockItemImage($id, $databaseConnection);
     ?>
-</table>
-</head>
-</html>
+
+    <div id="ProductFrame">
+        <?php
+        if (isset($StockItemImage[0]['ImagePath'])) { ?>
+            <div class="ImgFrame"
+                 style="background-image: url('<?php print "Public/StockItemIMG/" . $StockItemImage[0]['ImagePath']; ?>'); background-size: 230px; background-repeat: no-repeat; background-position: center;"></div>
+        <?php } else if (isset($StockItem['BackupImagePath'])) { ?>
+            <div class="ImgFrame"
+                 style="background-image: url('<?php print "Public/StockGroupIMG/" . $StockItem['BackupImagePath'] ?>'); background-size: cover;"></div>
+        <?php }
+        ?>
+
+        <div id="StockItemFrameRight">
+            <div class="CenterPriceLeftChild">
+                <h1 class="StockItemPriceText"><?php print sprintf(" %0.2f", round($StockItem["SellPrice"], 2) * $quantity); ?></h1>
+                <h6>Inclusief BTW </h6>
+            </div>
+        </div>
+<!--        <a class="ListItem" href='view.php?id=--><?php //print $StockItem['StockItemID']; ?><!--'>-->
+        <h1 class="StockItemID">Artikelnummer: <?php print $StockItem["StockItemID"]; ?></h1>
+        <p class="StockItemName"><?php print $StockItem["StockItemName"]; ?></p>
+<!--        </a>-->
+
+
+        <p class="StockItemComments"><?php print $StockItem["MarketingComments"]; ?></p>
+        <div>
+            <form action="cart.php" method="post">
+            <input hidden name="id" value=<?php print $StockItem["StockItemID"] ?>>
+            <input style="width: fit-content" name="quantity" type="number" min="1" value=<?php print $quantity; ?>>
+            <input style="width: fit-content" type="submit" value="Test">
+
+            </form>
+
+        </div>
+    </div>
+
+
+<?php
+}
+} else { ?>
+    <p>Winkelwagen is leeg</p>
+<?php }
+
+include __DIR__ . "/footer.php";
+?>
