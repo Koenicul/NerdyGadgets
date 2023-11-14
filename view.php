@@ -22,7 +22,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 
         <div id="ArticleHeader">
             <?php
-            if (isset($StockItemImage)) {
+            if (count($StockItemImage) > 0) {
                 // één plaatje laten zien
                 if (count($StockItemImage) == 1) {
                     ?>
@@ -31,6 +31,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     <?php
                 } else if (count($StockItemImage) >= 2) { ?>
                     <!-- meerdere plaatjes laten zien -->
+
                     <div id="ImageFrame">
                         <div id="ImageCarousel" class="carousel slide" data-interval="false">
                             <!-- Indicators -->
