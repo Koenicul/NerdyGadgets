@@ -138,10 +138,15 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
     </form>
 
     <?php
-    if (isset($_POST["submit"])) {              // zelfafhandelend formulier
-        $stockItemID = $_GET["id"];
-        addProductToCart($stockItemID);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
-        print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
+    if (isset($_POST["submit"])) {
+        // zelfafhandelend formulier
+        if ($StockItem['QuantityOnHand'] > 0){
+            $stockItemID = $_GET["id"];
+            addProductToCart($stockItemID);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
+            print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
+        }else {
+            print("Niet genoeg voorraad voor dit product.");
+        }
     }
     ?>
 </div>
