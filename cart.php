@@ -25,7 +25,7 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
             if (count($_SESSION['cart']) > 0) {
             $cart = getCart();
             $price = 0;
-            $korting = 5;
+            $korting = 0;
             
             foreach ($cart as $id => $quantity) {
                 $StockItem = getStockItem($id, $databaseConnection);
@@ -76,6 +76,14 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
         <div class="col-2">
             <p><h3>Overzicht</h3></p>
             <p>Artikelen : € <?php print $price ?></p>
+
+            <!-- Kortingscodes -->
+            <!-- Alleen nog maar de form geen werkend systeem -->
+            <p><form action="cart.php" method="post">
+                <label>Kortingscode:</label>
+                <input type="text" name="couponCode">
+                <input type="submit" value="Verstuur">
+            </form></p>
             <?php if ($korting != 0) { ?>
                 <p>Korting : € <?php print $korting ?></p>
             <?php } ?>
