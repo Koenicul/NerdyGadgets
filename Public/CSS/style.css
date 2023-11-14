@@ -262,14 +262,26 @@ ul#ul-class-price li {
     user-select: none;
 }
 .HrefDecoration {
-    color: #ffffff;
+    color: white
 }
+
 
 .HrefDecoration i.search {
     color: #676EFF;
 }
+.HrefDecorations i.fa-shopping-cart {
+    color: #676eff;
+}
+.HrefDecorations{
+    color: white;
+    margin-right: 15px;
+}
 
 .HrefDecoration:hover, .HrefDecoration:active {
+    text-decoration: none;
+    color: #ccc;
+}
+.HrefDecorations:hover, .HrefDecoration:active {
     text-decoration: none;
     color: #ccc;
 }
