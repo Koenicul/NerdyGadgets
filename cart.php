@@ -19,10 +19,12 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
 ?>
 <div class="p-2">
     <h1>Inhoud Winkelwagen</h1>
+    <?php
+    if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
+        ?>
     <div class="row">
         <div class="col-8">
             <?php
-            if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
             $cart = getCart();
             $price = 0;
             $korting = 0;
@@ -101,12 +103,15 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                 print sprintf("€ %.2f",$price - $korting);
             } ?></p>
         </div>
-        <?php
-
-        } else { ?>
-            <p>Winkelwagen is leeg</p>
-        <?php } ?>
     </div>
+<?php
+    } else { ?>
+        <h2 class="leeg">Je winkelwagentje is leeg</h2>
+
+        <div class="button-container">
+            <a href="index.php" class="button1">Terug naar winkelmandje</a>
+        </div>
+    <?php } ?>
 </div>
 <?php include __DIR__ . "/footer.php"; ?>
 <script>
