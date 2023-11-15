@@ -69,10 +69,9 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                     <p class="StockItemComments"><?php print $StockItem["MarketingComments"]; ?></p>
 
                     <!-- Wijzigen van hoeveelheid product -->
-                    <form action="cart.php" method="post" id="submitknop">
+                    <form action="cart.php" method="post" id="submitknop" >
                         <input hidden name="id" value=<?php print $StockItem["StockItemID"] ?>>
-                        <input class="numb" style="width: fit-content" name="quantity" type="number" min="1" onchange="formSubmit()" value=<?php print $quantity; ?>>
-
+                        <input class="numb" style="width: fit-content" name="quantity" type="number" min="1" onchange="this.form.submit()" value=<?php print $quantity; ?>>
 
                     <a href="cart.php?id=<?php print $id ?>" class="HrefDecorations"><i class="fa fa-solid fa-trash"></i></a>
                     <p class="voorraad"><?php print $StockItem['QuantityOnHand']; ?></p>
@@ -119,8 +118,4 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
     <?php } ?>
 </div>
 <?php include __DIR__ . "/footer.php"; ?>
-<script>
-    function formSubmit() {
-        document.getElementById("submitknop").submit();
-    }
-</script>
+
