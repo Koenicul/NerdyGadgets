@@ -22,7 +22,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 
         <div id="ArticleHeader">
             <?php
-            if (isset($StockItemImage)) {
+            if (count($StockItemImage) > 0) {
                 // één plaatje laten zien
                 if (count($StockItemImage) == 1) {
                     ?>
