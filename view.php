@@ -6,6 +6,7 @@ include "cartfuncties.php";
 $StockItem = getStockItem($_GET['id'], $databaseConnection);
 $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 ?>
+
 <div id="CenteredContent">
     <?php
     if ($StockItem != null) {
@@ -18,7 +19,6 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             </div>
         <?php }
         ?>
-
 
         <div id="ArticleHeader">
             <?php
@@ -89,7 +89,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 
                     </div>
                     <form method="post" class="form">
-                        <button type="submit" class="button" name="submit" "> In winkelmandje</button>
+                        <button type="submit" class="button" name="addToCart" onclick="" id="addToCart" data-toggle="modal" data-target="#myModal"> In winkelmandje</button>
                     </form>
                 </div>
 
@@ -143,12 +143,42 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
     } else {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
-
-
-    <?php
-    if (isset($_POST["submit"])) {              // zelfafhandelend formulier
-        $stockItemID = $_GET["id"];
-        addProductToCart($stockItemID);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
-    }
-    ?>
 </div>
+
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Het artikel is toegevoegd aan het winkelmandje</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p><?php print $StockItem['StockItemName'] ?></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Verder winkelen</button>
+                    <button onclick="window.location.href='cart.php'">Naar winkelwagen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+if (isset($_POST['addToCart'])) {
+    addProductToCart($StockItem['StockItemID']);
+    ?>
+
+    <script type="text/javascript">
+        $(window).on('load',function(){
+            $('#myModal').modal('show');
+        });
+    </script>
+<?php }
+
+
+include __DIR__ . "/footer.php";
+?>

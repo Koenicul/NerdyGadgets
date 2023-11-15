@@ -553,3 +553,6 @@ ul#ul-class-price li {
 .button:active {
     filter: brightness(.8);
 }
+.modal {
+    color: #2e2e79;
+}
