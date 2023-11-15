@@ -41,7 +41,7 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                 $price += round($StockItem["SellPrice"], 2) * $quantity;
                 ?>
 
-                <!-- <a class="ListItem" href='view.php?id=<?php print $StockItem['StockItemID']; ?>'> -->
+                <!-- <a class="ListItem" > -->
                 <div id="ProductFrame">
                     <?php
                     if (isset($StockItemImage[0]['ImagePath'])) { ?>
@@ -61,7 +61,7 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                     </div>
 
                     <h1 class="StockItemID">Artikelnummer: <?php print $StockItem["StockItemID"]; ?></h1>
-                    <p class="StockItemName"><?php print $StockItem["StockItemName"]; ?></p>
+                    <a href='view.php?id=<?php print $StockItem['StockItemID']; ?>' class="StockItemName"><?php print $StockItem["StockItemName"]; ?></a>
 
 
 
@@ -69,7 +69,7 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                     <p class="StockItemComments"><?php print $StockItem["MarketingComments"]; ?></p>
 
                     <!-- Wijzigen van hoeveelheid product -->
-                    <form action="cart.php" method="post" id="submitknop" >
+                    <form action="cart.php" method="post">
                         <input hidden name="id" value=<?php print $StockItem["StockItemID"] ?>>
                         <input class="numb" style="width: fit-content" name="quantity" type="number" min="1" onchange="this.form.submit()" value=<?php print $quantity; ?>>
 
@@ -77,7 +77,6 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                     <p class="voorraad"><?php print $StockItem['QuantityOnHand']; ?></p>
                 </div>
                 </form>
-                <!-- </a> -->
             <?php } ?>
         </div>
         <!-- Samenvatting van winkelmandje -->
