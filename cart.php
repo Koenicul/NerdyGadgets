@@ -41,7 +41,6 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                 $price += round($StockItem["SellPrice"], 2) * $quantity;
                 ?>
 
-                <!-- <a class="ListItem" > -->
                 <div id="ProductFrame">
                     <?php
                     if (isset($StockItemImage[0]['ImagePath'])) { ?>
@@ -86,7 +85,6 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
             <p>Artikelen : <?php print sprintf("€ %.2f",$price) ?></p>
 
             <!-- Kortingscodes -->
-            <!-- Alleen nog maar de form geen werkend systeem -->
             <p><form action="cart.php" method="post">
                 <label>Kortingscode:</label>
                 <input class="trans" type="text" name="couponCode">
