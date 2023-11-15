@@ -159,8 +159,8 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     <p><?php print $StockItem['StockItemName'] ?></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Verder winkelen</button>
-                    <button onclick="window.location.href='cart.php'">Naar winkelwagen</button>
+                    <button type="button" class="btn btn-default" style="color: white" data-dismiss="modal">Verder winkelen</button>
+                    <button class="button1" onclick="window.location.href='cart.php'">Naar winkelwagen</button>
                 </div>
             </div>
         </div>

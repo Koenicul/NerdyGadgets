@@ -615,3 +615,9 @@ hr.solid {
     bottom: 0;
     left: 250px;
 }
+.modal-content {
+    border-radius: 25px !important;
+}
+.modal-header, .modal-body, .modal-footer {
+    background: rgb(35, 35, 47);
+}
