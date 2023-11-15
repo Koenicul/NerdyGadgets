@@ -22,10 +22,10 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
     <div class="row">
         <div class="col-8">
             <?php
-            if (count($_SESSION['cart']) > 0) {
+            if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
             $cart = getCart();
             $price = 0;
-            $korting = 0;
+            $korting = 10;
             
             foreach ($cart as $id => $quantity) {
                 $StockItem = getStockItem($id, $databaseConnection);
@@ -55,6 +55,7 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                 
                     <h1 class="StockItemID">Artikelnummer: <?php print $StockItem["StockItemID"]; ?></h1>
                     <p class="StockItemName"><?php print $StockItem["StockItemName"]; ?></p>
+
                 
 
 
@@ -64,10 +65,11 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                     <form action="cart.php" method="post">
                         <input hidden name="id" value=<?php print $StockItem["StockItemID"] ?>>
                         <input style="width: fit-content" name="quantity" type="number" min="1" value=<?php print $quantity; ?>>
-                        <input style="width: fit-content" type="submit" value="Test">
+                        <input style="width: fit-content" type="submit" value="Verander">
                     </form>
 
                     <a href="cart.php?id=<?php print $id ?>" class="HrefDecoration"><i class="fa fa-solid fa-trash"></i></a>
+                    <p><?php print $StockItem['QuantityOnHand']; ?></p>
                 </div>
                 <!-- </a> -->
             <?php } ?>
@@ -75,7 +77,7 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
         <!-- Samenvatting van winkelmandje -->
         <div class="col-2">
             <p><h3>Overzicht</h3></p>
-            <p>Artikelen : € <?php print $price ?></p>
+            <p>Artikelen : <?php print sprintf("€ %.2f",$price) ?></p>
 
             <!-- Kortingscodes -->
             <!-- Alleen nog maar de form geen werkend systeem -->
@@ -85,10 +87,10 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                 <input type="submit" value="Verstuur">
             </form></p>
             <?php if ($korting != 0) { ?>
-                <p>Korting : € <?php print $korting ?></p>
+                <p>Korting : <?php print sprintf("€ %.2f", $korting) ?></p>
             <?php } ?>
             <p>------------</p>
-            <p>Totaal : € <?php print $price - $korting; ?></p>
+            <p>Totaal : <?php print sprintf("€ %.2f",$price - $korting); ?></p>
         </div>
         <?php
 
