@@ -25,8 +25,13 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
             if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
             $cart = getCart();
             $price = 0;
-            $korting = 10;
+            $korting = 0;
 
+            if (isset($_POST["couponCode"])){
+                if ($_POST["couponCode"] == "korting123"){
+                    $korting = 25;
+                }
+            }
             foreach ($cart as $id => $quantity) {
                 $StockItem = getStockItem($id, $databaseConnection);
                 $StockItemImage = getStockItemImage($id, $databaseConnection);
