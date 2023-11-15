@@ -89,7 +89,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 
                     </div>
                     <form method="post" class="form">
-                        <button type="submit" class="button" name="addToCart" onclick="" id="addToCart" data-toggle="modal" data-target="#myModal"> In winkelmandje</button>
+                        <button type="submit" class="button" name="addToCart" id="addToCart" data-toggle="modal" data-target="#myModal"> In winkelmandje</button>
                     </form>
                 </div>
 
@@ -167,16 +167,22 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
     </div>
 </div>
 
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+
 <?php
 if (isset($_POST['addToCart'])) {
     addProductToCart($StockItem['StockItemID']);
     ?>
-
     <script type="text/javascript">
         $(window).on('load',function(){
             $('#myModal').modal('show');
         });
     </script>
+
 <?php }
 
 
