@@ -190,13 +190,17 @@ ul#ul-class-navigation li {
     height: 100%;
     right: 0;
     width: 200px;
+
 }
 .CenterPriceLeftChild {
     position: relative;
     top: 40%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+
 }
+
+
 #StockItemDescription {
     background-color: rgba(35, 40, 47, 0.8);
     width: 49%;
@@ -209,7 +213,7 @@ ul#ul-class-navigation li {
 }
 #StockItemSpecifications {
     background-color: rgba(35, 40, 47, 0.8);
-    width: 49%;
+    width: 50%;
     float: left;
     padding: 10px;
     margin-left: 1%;
@@ -236,7 +240,7 @@ ul#ul-class-navigation li {
     position: absolute;
 }
 #LogoImage {
-    background-image: url("../ProductIMGHighRes/NerdyGadgetsLogo.png");
+    background-image: url("../ProductIMGHighRes/Banner_Logo.png");
     width: 250px;
     height: 90px;
     margin: 55px 55px 55px 10%;
@@ -262,14 +266,26 @@ ul#ul-class-price li {
     user-select: none;
 }
 .HrefDecoration {
-    color: #ffffff;
+    color: white
 }
+
 
 .HrefDecoration i.search {
     color: #676EFF;
 }
+.HrefDecorations i.fa-shopping-cart {
+    color: #676eff;
+}
+.HrefDecorations{
+    color: white;
+    margin-right: 15px;
+}
 
 .HrefDecoration:hover, .HrefDecoration:active {
+    text-decoration: none;
+    color: #ccc;
+}
+.HrefDecorations:hover, .HrefDecoration:active {
     text-decoration: none;
     color: #ccc;
 }
@@ -478,3 +494,79 @@ ul#ul-class-price li {
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
 }
+
+
+/** button css start **/
+.button {
+    color: #ffffff;
+    border: 2px solid #008CBA;
+    padding: 0.8em 1.7em;
+    background-color: transparent;
+    border-radius: .3em;
+    overflow: hidden;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    font-family: inherit;
+    z-index: 1;
+    margin: 0;
+}
+.button:hover{
+    background-color: #008CBA;
+    color: white;
+}
+.button {
+    --color: #2e2e79;
+    padding: 0.8em 1.7em;
+    background-color: transparent;
+    border-radius: .3em;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .5s;
+    font-weight: 500;
+    font-size: 15px;
+    border: 1px solid;
+    font-family: inherit;
+    text-transform: uppercase;
+    color: #ffffff;
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+}
+
+
+
+/** button css einde **/
+.button-container {
+    text-align: center;
+    margin-top: 20px; /* Je kunt deze marge aanpassen aan jouw behoeften */
+}
+
+.button1 {
+    color: #ffffff;
+    border: 2px solid #008CBA;
+    padding: 0.8em 1.7em;
+    background-color: transparent;
+    border-radius: .3em;
+    overflow: hidden;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    font-family: inherit;
+    z-index: 1;
+    margin: 0;
+}
+.button1:hover{
+    background-color: #008CBA;
+    color: white;
+}
+/** winkelwagen leeg tekst begin **/
+
+.leeg{
+    text-align: center;
+    font-weight: 500;
+}
+/** winkelwagen leeg tekst einde **/
+
