@@ -22,7 +22,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 
         <div id="ArticleHeader">
             <?php
-            if (count($StockItemImage) > 0) {
+            if (isset($StockItemImage)) {
                 // één plaatje laten zien
                 if (count($StockItemImage) == 1) {
                     ?>
@@ -31,7 +31,6 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
                     <?php
                 } else if (count($StockItemImage) >= 2) { ?>
                     <!-- meerdere plaatjes laten zien -->
-
                     <div id="ImageFrame">
                         <div id="ImageCarousel" class="carousel slide" data-interval="false">
                             <!-- Indicators -->
@@ -81,17 +80,27 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             <div class="QuantityText"><?php print $StockItem['QuantityOnHand']; ?></div>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
+
                     <div class="CenterPriceLeftChild">
+
                         <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b></p>
+
                         <h6> Inclusief BTW </h6>
+
                     </div>
+                    <form method="post" class="form">
+                        <button type="submit" class="button" name="submit" "> In winkelmandje</button>
+                    </form>
                 </div>
+
             </div>
+
         </div>
 
         <div id="StockItemDescription">
             <h3>Artikel beschrijving</h3>
             <p><?php print $StockItem['SearchDetails']; ?></p>
+
         </div>
         <div id="StockItemSpecifications">
             <h3>Artikel specificaties</h3>
@@ -134,20 +143,12 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
     } else {
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
-    <form method="post">
-        <input type="submit" name="submit" value="Voeg toe aan winkelmandje">
-    </form>
+
 
     <?php
-    if (isset($_POST["submit"])) {
-        // zelfafhandelend formulier
-        if ($StockItem['QuantityOnHand'] > 0){
-            $stockItemID = $_GET["id"];
-            addProductToCart($stockItemID);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
-            print("Product toegevoegd aan <a href='cart.php'> winkelmandje!</a>");
-        }else {
-            print("Niet genoeg voorraad voor dit product.");
-        }
+    if (isset($_POST["submit"])) {              // zelfafhandelend formulier
+        $stockItemID = $_GET["id"];
+        addProductToCart($stockItemID);         // maak gebruik van geïmporteerde functie uit cartfuncties.php
     }
     ?>
 </div>
