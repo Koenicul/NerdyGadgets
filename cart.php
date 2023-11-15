@@ -19,10 +19,12 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
 ?>
 <div class="p-2">
     <h1>Inhoud Winkelwagen</h1>
+    <?php
+    if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
+        ?>
     <div class="row">
         <div class="col-8">
             <?php
-            if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
             $cart = getCart();
             $price = 0;
             $korting = 0;
@@ -69,46 +71,52 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                     <!-- Wijzigen van hoeveelheid product -->
                     <form action="cart.php" method="post" id="submitknop">
                         <input hidden name="id" value=<?php print $StockItem["StockItemID"] ?>>
-                        <input style="width: fit-content" name="quantity" type="number" min="1" onchange="formSubmit()" value=<?php print $quantity; ?>>
-                    </form>
+                        <input class="numb" style="width: fit-content" name="quantity" type="number" min="1" onchange="formSubmit()" value=<?php print $quantity; ?>>
 
-                    <a href="cart.php?id=<?php print $id ?>" class="HrefDecoration"><i class="fa fa-solid fa-trash"></i></a>
-                    <p><?php print $StockItem['QuantityOnHand']; ?></p>
+
+                    <a href="cart.php?id=<?php print $id ?>" class="HrefDecorations"><i class="fa fa-solid fa-trash"></i></a>
+                    <p class="voorraad"><?php print $StockItem['QuantityOnHand']; ?></p>
                 </div>
+                </form>
                 <!-- </a> -->
             <?php } ?>
         </div>
         <!-- Samenvatting van winkelmandje -->
         <div class="col-2">
+            <div class="achter">
             <p><h3>Overzicht</h3></p>
             <p>Artikelen : <?php print sprintf("€ %.2f",$price) ?></p>
 
             <!-- Kortingscodes -->
-            <!-- Alleen nog maar de form niet verbonden aan de database-->
+            <!-- Alleen nog maar de form geen werkend systeem -->
             <p><form action="cart.php" method="post">
                 <label>Kortingscode:</label>
-                <input type="text" name="couponCode">
-                <input type="submit" value="Verstuur">
+                <input class="trans" type="text" name="couponCode">
+                <input class="button2" type="submit" value="Verstuur">
             </form></p>
             <?php if ($korting != 0) { ?>
                 <p>Korting : <?php print sprintf("€ %.2f", $korting) ?></p>
             <?php } ?>
-            <p>------------</p>
-            <p>Totaal : <?php
-                if (($price - $korting) < 0){
-                    $price = 0;
-                }else{
-                    $price-=$korting;
-                }
+                <hr class="solid">
+                <p>Totaal : <?php
+                    if (($price - $korting) < 0){
+                        $price = 0;
+                    }else{
+                        $price-=$korting;
+                    }
 
-                print sprintf("€ %.2f",$price); ?></p>
+                    print sprintf("€ %.2f",$price); ?></p>
         </div>
-        <?php
-
-        } else { ?>
-            <p>Winkelwagen is leeg</p>
-        <?php } ?>
+        </div>
     </div>
+<?php
+    } else { ?>
+        <h2 class="leeg">Je winkelwagentje is leeg</h2>
+
+        <div class="button-container">
+            <a href="index.php" class="button1">Terug naar winkelmandje</a>
+        </div>
+    <?php } ?>
 </div>
 <?php include __DIR__ . "/footer.php"; ?>
 <script>
