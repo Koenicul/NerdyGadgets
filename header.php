@@ -3,6 +3,14 @@
 session_start();
 include "database.php";
 $databaseConnection = connectToDatabase();
+
+function getVoorraadTekst($actueleVoorraad) {
+    if ($actueleVoorraad > 1000) {
+        return "Ruime voorraad beschikbaar.";
+    } else {
+        return "Voorraad: $actueleVoorraad";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

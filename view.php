@@ -77,7 +77,7 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             <h2 class="StockItemNameViewSize StockItemName">
                 <?php print $StockItem['StockItemName']; ?>
             </h2>
-            <div class="QuantityText"><?php print $StockItem['QuantityOnHand']; ?></div>
+            <div class="QuantityText"><?php print getVoorraadTekst($StockItem["QuantityOnHand"]); ?></div>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
 
