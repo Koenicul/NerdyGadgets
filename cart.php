@@ -26,23 +26,23 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
             $cart = getCart();
             $price = 0;
             $korting = 10;
-            
+
             foreach ($cart as $id => $quantity) {
                 $StockItem = getStockItem($id, $databaseConnection);
                 $StockItemImage = getStockItemImage($id, $databaseConnection);
 
                 $price += round($StockItem["SellPrice"], 2) * $quantity;
                 ?>
-                
+
                 <!-- <a class="ListItem" href='view.php?id=<?php print $StockItem['StockItemID']; ?>'> -->
                 <div id="ProductFrame">
                     <?php
                     if (isset($StockItemImage[0]['ImagePath'])) { ?>
                         <div class="ImgFrame"
-                            style="background-image: url('<?php print "Public/StockItemIMG/" . $StockItemImage[0]['ImagePath']; ?>'); background-size: 230px; background-repeat: no-repeat; background-position: center;"></div>
+                             style="background-image: url('<?php print "Public/StockItemIMG/" . $StockItemImage[0]['ImagePath']; ?>'); background-size: 230px; background-repeat: no-repeat; background-position: center;"></div>
                     <?php } else if (isset($StockItem['BackupImagePath'])) { ?>
                         <div class="ImgFrame"
-                            style="background-image: url('<?php print "Public/StockGroupIMG/" . $StockItem['BackupImagePath'] ?>'); background-size: cover;"></div>
+                             style="background-image: url('<?php print "Public/StockGroupIMG/" . $StockItem['BackupImagePath'] ?>'); background-size: cover;"></div>
                     <?php }
                     ?>
 
@@ -52,20 +52,19 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                             <h6>Inclusief BTW </h6>
                         </div>
                     </div>
-                
+
                     <h1 class="StockItemID">Artikelnummer: <?php print $StockItem["StockItemID"]; ?></h1>
                     <p class="StockItemName"><?php print $StockItem["StockItemName"]; ?></p>
 
-                
+
 
 
                     <p class="StockItemComments"><?php print $StockItem["MarketingComments"]; ?></p>
-                    
+
                     <!-- Wijzigen van hoeveelheid product -->
-                    <form action="cart.php" method="post">
+                    <form action="cart.php" method="post" id="submitknop">
                         <input hidden name="id" value=<?php print $StockItem["StockItemID"] ?>>
-                        <input style="width: fit-content" name="quantity" type="number" min="1" value=<?php print $quantity; ?>>
-                        <input style="width: fit-content" type="submit" value="Verander">
+                        <input style="width: fit-content" name="quantity" type="number" min="1" onchange="formSubmit()" value=<?php print $quantity; ?>>
                     </form>
 
                     <a href="cart.php?id=<?php print $id ?>" class="HrefDecoration"><i class="fa fa-solid fa-trash"></i></a>
@@ -100,3 +99,8 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
     </div>
 </div>
 <?php include __DIR__ . "/footer.php"; ?>
+<script>
+    function formSubmit() {
+        document.getElementById("submitknop").submit();
+    }
+</script>
