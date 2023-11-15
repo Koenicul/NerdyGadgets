@@ -94,7 +94,12 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                 <p>Korting : <?php print sprintf("€ %.2f", $korting) ?></p>
             <?php } ?>
             <p>------------</p>
-            <p>Totaal : <?php print sprintf("€ %.2f",$price - $korting); ?></p>
+            <p>Totaal : <?php
+            if (($price - $korting) < 0) {
+                print sprintf("€ %.2f","0");
+            } else {
+                print sprintf("€ %.2f",$price - $korting);
+            } ?></p>
         </div>
         <?php
 
