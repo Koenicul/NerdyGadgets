@@ -496,7 +496,25 @@ ul#ul-class-price li {
 }
 
 
-/** button css **/
+/** button css start **/
+.button {
+    color: #ffffff;
+    border: 2px solid #008CBA;
+    padding: 0.8em 1.7em;
+    background-color: transparent;
+    border-radius: .3em;
+    overflow: hidden;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    font-family: inherit;
+    z-index: 1;
+    margin: 0;
+}
+.button:hover{
+    background-color: #008CBA;
+    color: white;
+}
 .button {
     --color: #2e2e79;
     padding: 0.8em 1.7em;
@@ -518,38 +536,37 @@ ul#ul-class-price li {
 
 }
 
-.button::before, .button::after {
-    content: '';
-    display: block;
-    width: 50px;
-    height: 50px;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    border-radius: 50%;
-    z-index: -1;
-    background-color: var(--color);
-    transition: 1s ease;
+
+
+/** button css einde **/
+.button-container {
+    text-align: center;
+    margin-top: 20px; /* Je kunt deze marge aanpassen aan jouw behoeften */
 }
 
-.button::before {
-    top: -1em;
-    left: -1em;
+.button1 {
+    color: #ffffff;
+    border: 2px solid #008CBA;
+    padding: 0.8em 1.7em;
+    background-color: transparent;
+    border-radius: .3em;
+    overflow: hidden;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    font-family: inherit;
+    z-index: 1;
+    margin: 0;
 }
+.button1:hover{
+    background-color: #008CBA;
+    color: white;
+}
+/** winkelwagen leeg tekst begin **/
 
-.button::after {
-    left: calc(100% + 1em);
-    top: calc(100% + 1em);
+.leeg{
+    text-align: center;
+    font-weight: 500;
 }
+/** winkelwagen leeg tekst einde **/
 
-.button:hover::before, .button:hover::after {
-    height: 410px;
-    width: 410px;
-}
-
-.button:hover {
-    color: rgb(255, 255, 255);
-}
-
-.button:active {
-    filter: brightness(.8);
-}
