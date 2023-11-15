@@ -499,7 +499,7 @@ ul#ul-class-price li {
 /** button css start **/
 .button {
     color: #ffffff;
-    border: 2px solid #008CBA;
+    border: 2px solid #676EFFFF;
     padding: 0.8em 1.7em;
     background-color: transparent;
     border-radius: .3em;
@@ -512,7 +512,7 @@ ul#ul-class-price li {
     margin: 0;
 }
 .button:hover{
-    background-color: #008CBA;
+    background-color: #676EFFFF;
     color: white;
 }
 .button {
@@ -546,7 +546,7 @@ ul#ul-class-price li {
 
 .button1 {
     color: #ffffff;
-    border: 2px solid #008CBA;
+    border: 2px solid #676EFFFF;
     padding: 0.8em 1.7em;
     background-color: transparent;
     border-radius: .3em;
@@ -559,7 +559,7 @@ ul#ul-class-price li {
     margin: 0;
 }
 .button1:hover{
-    background-color: #008CBA;
+    background-color: #676EFFFF;
     color: white;
 }
 /** winkelwagen leeg tekst begin **/
