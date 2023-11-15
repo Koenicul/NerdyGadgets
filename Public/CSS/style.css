@@ -190,13 +190,17 @@ ul#ul-class-navigation li {
     height: 100%;
     right: 0;
     width: 200px;
+
 }
 .CenterPriceLeftChild {
     position: relative;
     top: 40%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
+
 }
+
+
 #StockItemDescription {
     background-color: rgba(35, 40, 47, 0.8);
     width: 49%;
@@ -209,7 +213,7 @@ ul#ul-class-navigation li {
 }
 #StockItemSpecifications {
     background-color: rgba(35, 40, 47, 0.8);
-    width: 49%;
+    width: 50%;
     float: left;
     padding: 10px;
     margin-left: 1%;
@@ -489,4 +493,63 @@ ul#ul-class-price li {
     background: rgb(36, 41, 143);
     border: 1px rgb(98, 158, 255) solid;
     color: #fff;
+}
+
+
+/** button css **/
+.button {
+    --color: #2e2e79;
+    padding: 0.8em 1.7em;
+    background-color: transparent;
+    border-radius: .3em;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .5s;
+    font-weight: 500;
+    font-size: 15px;
+    border: 1px solid;
+    font-family: inherit;
+    text-transform: uppercase;
+    color: #ffffff;
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+}
+
+.button::before, .button::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+    background-color: var(--color);
+    transition: 1s ease;
+}
+
+.button::before {
+    top: -1em;
+    left: -1em;
+}
+
+.button::after {
+    left: calc(100% + 1em);
+    top: calc(100% + 1em);
+}
+
+.button:hover::before, .button:hover::after {
+    height: 410px;
+    width: 410px;
+}
+
+.button:hover {
+    color: rgb(255, 255, 255);
+}
+
+.button:active {
+    filter: brightness(.8);
 }
