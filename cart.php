@@ -86,13 +86,14 @@ if (isset($_POST["deleteProduct"])) {
         <div class="col-2">
             <div class="achter">
             <p><h3>Overzicht</h3></p>
-            <p>Artikelen (<?php print amountOfItems($cart); ?>) : <?php print sprintf("€ %.2f",$price) ?></p>
+            <p>Aantal artikelen (<?php print amountOfItems($cart); ?>) </p>
+                <p>Prijs <?php print sprintf("€ %.2f",$price) ?> </p>
 
             <!-- Kortingscodes -->
             <p><form action="cart.php" method="post">
                 <label>Kortingscode:</label>
                 <input class="trans form-control" type="text" name="couponCode">
-                <input class="button2" type="submit" value="Verstuur">
+                <input class="button2" type="submit" value="Kortingscode gebruiken">
             </form></p>
             <?php if ($korting != 0) { ?>
                 <p>Korting : <?php print sprintf("€ %.2f", $korting) ?></p>
@@ -106,6 +107,7 @@ if (isset($_POST["deleteProduct"])) {
                     }
 
                     print sprintf("€ %.2f",$price); ?></p>
+                <input class="button2" type="submit" value="Betalen">
         </div>
         </div>
     </div>
