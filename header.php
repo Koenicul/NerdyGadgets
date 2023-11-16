@@ -3,12 +3,19 @@
 session_start();
 include "database.php";
 $databaseConnection = connectToDatabase();
+
+function getVoorraadTekst($actueleVoorraad) {
+    if ($actueleVoorraad > 1000) {
+        return "Ruime voorraad beschikbaar.";
+    } else {
+        return "Voorraad: $actueleVoorraad";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>NerdyGadgets</title>
-    <link rel="icon" href="Public/Img/NG.png" type="image/icon type">
 
     <!-- Javascript -->
     <script src="Public/JS/fontawesome.js"></script>
@@ -26,7 +33,7 @@ $databaseConnection = connectToDatabase();
 <div class="Background">
     <div class="row" id="Header">
         <div class="col-2"><a href="./" id="LogoA">
-                <div id="LogoImage"><img src="Public/Img/Nerdy.png" alt="Logo" class="logo"></div>
+                <div id="LogoImage"><img src="Public/Img/Banner_Logo.png" alt="Logo" class="logo"></div>
             </a></div>
         <div class="col-8" id="CategoriesBar">
             <ul id="ul-class">
@@ -47,15 +54,21 @@ $databaseConnection = connectToDatabase();
                 </li>
             </ul>
         </div>
-<!-- code voor US3: zoeken -->
 
+
+
+<!-- code voor US3: zoeken en winkel wagen -->
         <ul id="ul-class-navigation">
+            <li>
+                <a href="cart.php" class="HrefDecorations"><i class="fas fa-shopping-cart"></i> Winkelwagen</a>
+            </li>
             <li>
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Zoeken</a>
             </li>
         </ul>
 
 <!-- einde code voor US3 zoeken -->
+
     </div>
     <div class="row" id="Content">
         <div class="col-12">

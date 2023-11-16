@@ -1,10 +1,12 @@
 <!-- dit bestand bevat alle code voor de pagina die één product laat zien -->
 <?php
 include __DIR__ . "/header.php";
+include "cartfuncties.php";
 
 $StockItem = getStockItem($_GET['id'], $databaseConnection);
 $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
 ?>
+
 <div id="CenteredContent">
     <?php
     if ($StockItem != null) {
@@ -18,11 +20,9 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
         <?php }
         ?>
 
-
-
         <div id="ArticleHeader">
             <?php
-            if (isset($StockItemImage)) {
+            if (count($StockItemImage) > 0) {
                 // één plaatje laten zien
                 if (count($StockItemImage) == 1) {
                     ?>
@@ -77,20 +77,30 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
             <h2 class="StockItemNameViewSize StockItemName">
                 <?php print $StockItem['StockItemName']; ?>
             </h2>
-            <div class="QuantityText"><?php print $StockItem['QuantityOnHand']; ?></div>
+            <div class="QuantityText"><?php print getVoorraadTekst($StockItem["QuantityOnHand"]); ?></div>
             <div id="StockItemHeaderLeft">
                 <div class="CenterPriceLeft">
+
                     <div class="CenterPriceLeftChild">
+
                         <p class="StockItemPriceText"><b><?php print sprintf("€ %.2f", $StockItem['SellPrice']); ?></b></p>
+
                         <h6> Inclusief BTW </h6>
+
                     </div>
+                    <form method="post" class="form">
+                        <button type="submit" class="button" name="addToCart" id="addToCart" data-toggle="modal" data-target="#myModal"> In winkelmandje</button>
+                    </form>
                 </div>
+
             </div>
+
         </div>
 
         <div id="StockItemDescription">
             <h3>Artikel beschrijving</h3>
             <p><?php print $StockItem['SearchDetails']; ?></p>
+
         </div>
         <div id="StockItemSpecifications">
             <h3>Artikel specificaties</h3>
@@ -134,3 +144,47 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
         ?><h2 id="ProductNotFound">Het opgevraagde product is niet gevonden.</h2><?php
     } ?>
 </div>
+
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Het artikel is toegevoegd aan het winkelmandje</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p><?php print $StockItem['StockItemName'] ?></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" style="color: white" data-dismiss="modal">Verder winkelen</button>
+                    <button class="button1" onclick="window.location.href='cart.php'">Naar winkelwagen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+
+<?php
+if (isset($_POST['addToCart'])) {
+    addProductToCart($StockItem['StockItemID']);
+    ?>
+    <script type="text/javascript">
+        $(window).on('load',function(){
+            $('#myModal').modal('show');
+        });
+    </script>
+
+<?php }
+
+
+include __DIR__ . "/footer.php";
+?>
