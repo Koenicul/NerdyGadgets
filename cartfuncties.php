@@ -27,3 +27,13 @@ function addProductToCart($stockItemID)
 
     saveCart($cart);                            // werk de "gedeelde" $_SESSION["cart"] bij met de bijgewerkte cart
 }
+
+function amountOfItems($cart) {
+    $amount = 0;
+    foreach ($cart as $quantity) {
+        for ($i = 0; $i < $quantity; $i++) {
+            $amount++;
+        }
+    }
+    return $amount;
+}

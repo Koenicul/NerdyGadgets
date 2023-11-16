@@ -86,7 +86,7 @@ if (isset($_POST["deleteProduct"])) {
         <div class="col-2">
             <div class="achter">
             <p><h3>Overzicht</h3></p>
-            <p>Artikelen : <?php print sprintf("€ %.2f",$price) ?></p>
+            <p>Artikelen (<?php print amountOfItems($cart); ?>) : <?php print sprintf("€ %.2f",$price) ?></p>
 
             <!-- Kortingscodes -->
             <p><form action="cart.php" method="post">
