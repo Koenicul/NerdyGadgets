@@ -541,7 +541,8 @@ ul#ul-class-price li {
 /** button css einde **/
 .button-container {
     text-align: center;
-    margin-top: 20px; /* Je kunt deze marge aanpassen aan jouw behoeften */
+    margin-top: 40px !important; /* Je kunt deze marge aanpassen aan jouw behoeften */
+
 }
 
 .button1 {
