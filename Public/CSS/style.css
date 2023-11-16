@@ -499,7 +499,7 @@ ul#ul-class-price li {
 /** button css start **/
 .button {
     color: #ffffff;
-    border: 2px solid #008CBA;
+    border: 2px solid #676EFFFF;
     padding: 0.8em 1.7em;
     background-color: transparent;
     border-radius: .3em;
@@ -512,7 +512,7 @@ ul#ul-class-price li {
     margin: 0;
 }
 .button:hover{
-    background-color: #008CBA;
+    background-color: #676EFFFF;
     color: white;
 }
 .button {
@@ -541,12 +541,13 @@ ul#ul-class-price li {
 /** button css einde **/
 .button-container {
     text-align: center;
-    margin-top: 20px; /* Je kunt deze marge aanpassen aan jouw behoeften */
+    margin-top: 40px !important; /* Je kunt deze marge aanpassen aan jouw behoeften */
+
 }
 
 .button1 {
     color: #ffffff;
-    border: 2px solid #008CBA;
+    border: 2px solid #676EFFFF;
     padding: 0.8em 1.7em;
     background-color: transparent;
     border-radius: .3em;
@@ -559,7 +560,25 @@ ul#ul-class-price li {
     margin: 0;
 }
 .button1:hover{
-    background-color: #008CBA;
+    background-color: #676EFFFF;
+    color: white;
+}
+.button2 {
+    color: #ffffff;
+    border: 2px solid #676EFFFF;
+    padding: 0.6em 1.5em;
+    background-color: transparent;
+    border-radius: .3em;
+    overflow: hidden;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    font-family: inherit;
+    z-index: 1;
+    margin: 0;
+}
+.button2:hover{
+    background-color: #676EFFFF;
     color: white;
 }
 /** winkelwagen leeg tekst begin **/
@@ -570,3 +589,40 @@ ul#ul-class-price li {
 }
 /** winkelwagen leeg tekst einde **/
 
+.achter{
+    border:  solid 1px white;
+    border-radius: 15px;
+    padding: 15px;
+    position: sticky;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 220px;
+    display: block;
+}
+.trans{
+    margin-bottom: 10px;
+}
+hr.solid {
+    border-top: 3px solid #ffffff;
+}
+.numb{
+    width: 70px !important;
+}
+.HrefDecorations{
+    margin-left: 10px;
+}
+.voorraad{
+    position: absolute;
+    bottom: 0;
+    left: 250px;
+}
+.modal-content {
+    border-radius: 25px !important;
+}
+.modal-header, .modal-body, .modal-footer {
+    background: rgb(35, 35, 47);
+}
+.modal-header .close{
+    color: white !important;
+    opacity: 100% !important;
+}
