@@ -1,4 +1,7 @@
 <!-- dit bestand bevat alle code voor de pagina die één product laat zien -->
+
+
+
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
@@ -20,6 +23,14 @@ if (isset($_POST["deleteProduct"])) {
 }
 
 ?>
+<script>
+  function validateNum(input, max) {
+    console.log(input.value);
+    if (input.value < 1) input.value = 1;
+    if (input.value > max) input.value = max;
+  } 
+</script>
+
 <div class="p-2">
     <h1>Inhoud Winkelwagen</h1>
     <?php
@@ -69,7 +80,7 @@ if (isset($_POST["deleteProduct"])) {
 
                         <!-- Wijzigen van hoeveelheid product -->
                         <ul class="list-inline">
-                            <li class="list-inline-item align-middle"><form action="cart.php" method="post"><input hidden name="id" value=<?php print $StockItem["StockItemID"] ?>><input class="numb form-control" style="width: fit-content" name="quantity" type="number" min="1" onchange="this.form.submit()" value=<?php print $quantity; ?>></form></li>
+                            <li class="list-inline-item align-middle"><form action="cart.php" method="post"><input hidden name="id" value=<?php print $StockItem["StockItemID"] ?>><input class="numb form-control" style="width: fit-content" name="quantity" type="number" min="1" max="<?php print $StockItem['QuantityOnHand']; ?>" onchange="validateNum(this, <?php print $StockItem['QuantityOnHand']; ?>), this.form.submit()" value=<?php print $quantity; ?>></form></li>
                             <li class="list-inline-item align-middle"><form method="post"><button class="btn btn-link" style="text-decoration: none; color: inherit" type="submit" name="deleteProduct" value="<?php print $StockItem["StockItemID"] ?>"><i class='fa fa-solid fa-trash'></i></button></form></li>
                         </ul>
 
@@ -86,8 +97,7 @@ if (isset($_POST["deleteProduct"])) {
             <div class="col-2">
                 <div class="achter">
                     <p><h3>Overzicht</h3></p>
-                    <p>Aantal artikelen (<?php print amountOfItems($cart); ?>) </p>
-                    <p>Prijs <?php print sprintf("€ %.2f",$price) ?> </p>
+                    <p>Artikelen (<?php print amountOfItems($cart); ?>) : <?php print sprintf("€ %.2f",$price) ?></p>
 
                     <!-- Kortingscodes -->
                     <p><form action="cart.php" method="post">
@@ -117,10 +127,12 @@ if (isset($_POST["deleteProduct"])) {
         <h2 class="leeg">Je winkelwagentje is leeg</h2>
 
         <div class="button-container">
-            <a href="index.php" class="button1">Terug naar home</a>
+            <a href="categories.php" class="button1">Terug naar home</a>
         </div>
     <?php } ?>
 </div>
+
+
 
 <script>
     if ( window.history.replaceState ) {
