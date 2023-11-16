@@ -621,3 +621,7 @@ hr.solid {
 .modal-header, .modal-body, .modal-footer {
     background: rgb(35, 35, 47);
 }
+.modal-header .close{
+    color: white !important;
+    opacity: 100% !important;
+}
