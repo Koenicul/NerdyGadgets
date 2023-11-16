@@ -3,12 +3,6 @@
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
 
-if (isset($_GET["id"])) {
-    $cart = getCart();
-    unset($cart[$_GET["id"]]);
-    saveCart($cart);
-}
-
 if (isset($_POST["quantity"]) && isset($_POST["id"])) {
     $cart = getCart();
     $cart[$_POST["id"]] = $_POST["quantity"];
@@ -16,6 +10,15 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
 
     saveCart($cart);
 }
+
+if (isset($_POST["deleteProduct"])) {
+    $cart = getCart();
+    if (array_key_exists($_POST["deleteProduct"], $cart)) {
+        unset($cart[$_POST["deleteProduct"]]);
+    }
+    saveCart($cart);
+}
+
 ?>
 <div class="p-2">
     <h1>Inhoud Winkelwagen</h1>
@@ -62,20 +65,21 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
                     <h1 class="StockItemID">Artikelnummer: <?php print $StockItem["StockItemID"]; ?></h1>
                     <a href='view.php?id=<?php print $StockItem['StockItemID']; ?>' class="StockItemName"><?php print $StockItem["StockItemName"]; ?></a>
 
-
-
-
                     <p class="StockItemComments"><?php print $StockItem["MarketingComments"]; ?></p>
 
                     <!-- Wijzigen van hoeveelheid product -->
-                    <form action="cart.php" method="post">
-                        <input hidden name="id" value=<?php print $StockItem["StockItemID"] ?>>
-                        <input class="numb" style="width: fit-content" name="quantity" type="number" min="1" onchange="this.form.submit()" value=<?php print $quantity; ?>>
+                        <ul class="list-inline">
+                            <li class="list-inline-item align-middle"><form action="cart.php" method="post"><input hidden name="id" value=<?php print $StockItem["StockItemID"] ?>><input class="numb form-control" style="width: fit-content" name="quantity" type="number" min="1" onchange="this.form.submit()" value=<?php print $quantity; ?>></form></li>
+                            <li class="list-inline-item align-middle"><form method="post"><button class="btn btn-link" style="text-decoration: none; color: inherit" type="submit" name="deleteProduct" value="<?php print $StockItem["StockItemID"] ?>"><i class='fa fa-solid fa-trash'></i></button></form></li>
+                        </ul>
 
-                    <a href="cart.php?id=<?php print $id ?>" class="HrefDecorations"><i class="fa fa-solid fa-trash"></i></a>
-                    <p class="voorraad"><?php print $StockItem['QuantityOnHand']; ?></p>
+                    <p class="voorraad"><?php print getVoorraadTekst($StockItem['QuantityOnHand']); ?></p>
                 </div>
-                </form>
+
+                <script>
+                    function deleteProduct(id) {
+                    }
+                </script>
             <?php } ?>
         </div>
         <!-- Samenvatting van winkelmandje -->
@@ -87,7 +91,7 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
             <!-- Kortingscodes -->
             <p><form action="cart.php" method="post">
                 <label>Kortingscode:</label>
-                <input class="trans" type="text" name="couponCode">
+                <input class="trans form-control" type="text" name="couponCode">
                 <input class="button2" type="submit" value="Verstuur">
             </form></p>
             <?php if ($korting != 0) { ?>
@@ -105,14 +109,22 @@ if (isset($_POST["quantity"]) && isset($_POST["id"])) {
         </div>
         </div>
     </div>
+
 <?php
     } else { ?>
         <h2 class="leeg">Je winkelwagentje is leeg</h2>
 
         <div class="button-container">
-            <a href="index.php" class="button1">Terug naar winkelmandje</a>
+            <a href="index.php" class="button1">Terug naar home</a>
         </div>
     <?php } ?>
 </div>
+
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+
 <?php include __DIR__ . "/footer.php"; ?>
 
