@@ -214,6 +214,12 @@ if (isset($amount)) {
                     print "selected";
                 } ?>>75
                 </option>
+		    <!-- begin aan aantal per pagina 100 toegevoegd -->
+		     <option value="100" <?php if ($_SESSION['products_on_page'] == 100) {
+                    print "selected";
+                } ?>>100
+                </option>
+		    <!-- einde aan aantal per pagina 100 toegevoegd -->
             </select>
             <h4 class="FilterTopMargin"><i class="fas fa-sort"></i> Sorteren</h4>
             <select name="sort" id="sort" onchange="this.form.submit()">>
