@@ -536,15 +536,16 @@ ul#ul-class-price li {
 
 }
 
+/** button css einde  **/
 
-
-/** button css einde **/
+/** begin container button **/
 .button-container {
     text-align: center;
-    margin-top: 40px !important; /* Je kunt deze marge aanpassen aan jouw behoeften */
-
+    margin-top: 40px !important; 
 }
+/** einde container button **/
 
+/** button css start winkelwagen **/
 .button1 {
     color: #ffffff;
     border: 2px solid #676EFFFF;
@@ -581,14 +582,16 @@ ul#ul-class-price li {
     background-color: #676EFFFF;
     color: white;
 }
-/** winkelwagen leeg tekst begin **/
+/** einde button css einde winkelwagen **/
 
+/** begin winkelwagen leeg tekst begin **/
 .leeg{
     text-align: center;
     font-weight: 500;
 }
-/** winkelwagen leeg tekst einde **/
+/** einde winkelwagen leeg tekst einde **/
 
+/** begin overzicht schema winkelwagen **/
 .achter{
     border:  solid 1px white;
     border-radius: 15px;
@@ -599,23 +602,31 @@ ul#ul-class-price li {
     top: 220px;
     display: block;
 }
+/** einde overzicht schema winkelwagen **/
 .trans{
     margin-bottom: 10px;
 }
 hr.solid {
     border-top: 3px solid #ffffff;
 }
+/** egin nummer input winkelwagen **/
 .numb{
     width: 70px !important;
 }
+/** einde nummer input winkelwagen **/
 .HrefDecorations{
     margin-left: 10px;
 }
+
+/** begin vooraad winkelwagen **/
 .voorraad{
     position: absolute;
     bottom: 0;
     left: 250px;
 }
+/** einde vooraad winkelwagen **/
+
+/* Begin popup vederwinkelen of naar winkelwagen */
 .modal-content {
     border-radius: 25px !important;
 }
@@ -626,3 +637,4 @@ hr.solid {
     color: white !important;
     opacity: 100% !important;
 }
+/* Einde popup vederwinkelen of naar winkelwagen */
