@@ -36,7 +36,7 @@ if (isset($_POST["deleteProduct"])) {
             <div class="col-8">
                 <?php
                 $cart = getCart();
-                $price = 0;
+                $price = getPrice($cart);
                 $korting = 0;
 
                 if (isset($_POST["couponCode"])){
@@ -47,8 +47,6 @@ if (isset($_POST["deleteProduct"])) {
                 foreach ($cart as $id => $quantity) {
                     $StockItem = getStockItem($id, $databaseConnection);
                     $StockItemImage = getStockItemImage($id, $databaseConnection);
-
-                    $price += round($StockItem["SellPrice"], 2) * $quantity;
                     ?>
 
                     <div id="ProductFrame">

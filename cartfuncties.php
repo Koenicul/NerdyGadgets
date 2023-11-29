@@ -38,6 +38,16 @@ function amountOfItems($cart) {
     return $amount;
 }
 
+function getPrice($cart) {
+    $databaseConnection = connectToDatabase();
+    $price = 0;
+    foreach ($cart as $item => $quantity) {
+        $StockItem = getStockItem($item, $databaseConnection);
+        $price += round($StockItem["SellPrice"], 2) * $quantity;
+    }
+    return $price;
+}
+
 function decrementStockitems($id, $databaseConnection, $quantity) {
 
     $Query = "UPDATE stockitemholdings SET QuantityOnHand = GREATEST(QuantityOnHand - $quantity, 0) WHERE stockitemid = ?";

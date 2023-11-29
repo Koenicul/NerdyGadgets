@@ -7,9 +7,13 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
+
+
 $cart = getCart();
-$price = 10;
+$price = getPrice($cart);
 $verzendkosten = 2;
+
+
 
 function GetAddress($postalcode, $houseNumber)
 {
@@ -99,28 +103,5 @@ if(isset($_POST['submit'])) {
         </div>
     </div>
 </form>
-
-<div class="container">
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Het artikel is toegevoegd aan het winkelmandje</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p><?php print $StockItem['StockItemName'] ?></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" style="color: white" data-dismiss="modal">Verder winkelen</button>
-                    <button class="button1" onclick="window.location.href='cart.php'">Naar winkelwagen</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <?php include __DIR__ . "/footer.php"; ?>
