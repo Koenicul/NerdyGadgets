@@ -1,30 +1,88 @@
-<?php include __DIR__ . "/header.php"; 
+<?php include __DIR__ . "/header.php";
 include "cartfuncties.php";
+require __DIR__ . '/vendor/autoload.php';
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 $cart = getCart();
 $price = 10;
 $verzendkosten = 2;
+
+function GetAddress($postalcode, $houseNumber)
+{
+    $api_key = $_ENV["TOKEN"];
+    $url = "https://json.api-postcode.nl?postcode=". $postalcode ."&number=" . $houseNumber;
+    $ch = curl_init($url);
+    $headers = array(
+        'token: ' . $api_key
+    );
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+
+    $response = curl_exec($ch);
+
+    curl_close($ch);
+
+    if ($response != '{"error":"invalid postcode."}') {
+        return $response;
+    }
+//    popup if invalid postalcode
+
+    echo '<script>alert("Geen adres gevonden.")</script>';
+//
+}
+
+if(isset($_POST['submit'])) {
+    $postalcode = $_POST['postalcode'];
+    $postalcode = str_replace(" ", "", $postalcode);
+
+    $response = GetAddress($postalcode, $_POST["houseNumber"]);
+    if ($response) {
+        foreach ($cart as $id => $quantity){
+            decrementStockitems($id, $databaseConnection, $quantity);
+        }
+        $cart = array();
+        saveCart($cart);
+        header("refresh:0.1;url=ideal.php");
+    }
+}
 ?>
 
-<form method="post" action="https://www.ideal.nl/demo/en/">
+<form method="post">
     <div>
         <div class="form-group">
             <label>Naam</label>
-            <input class="form-control" type="text" name="name" placeholder="Naam">
+            <input class="form-control" type="text" name="name" required placeholder="Naam">
         </div>
 
         <div class="form-group">
             <label>Postcode</label>
-            <input class="form-control" type="text" name="postalcode" placeholder="Postcode">
+            <input class="form-control" type="text" name="postalcode" required id="postalcode" placeholder="Postcode">
         </div>
 
         <div class="form-group">
             <label>Huisnummer</label>
-            <input class="form-control" type="text" name="houseNumber" placeholder="Huisnummer">
+            <input class="form-control" type="text" name="houseNumber" required id="houseNumber" placeholder="Huisnummer">
         </div>
 
         <div class="form-group">
-            <label>Woonplaats</label>
-            <input class="form-control" type="text" name="city" placeholder="Woonplaats">
+            <label>Bank</label>
+            <select required name="bank" class="form-control">
+                <option value="" selected disabled>Selecteer je bank</option>
+                <option>ABN-Amro Bank</option>
+                <option>ASN Bank</option>
+                <option>Bunq</option>
+                <option>DHB Bank</option>
+                <option>ING Bank</option>
+                <option>Knab</option>
+                <option>Rabobank</option>
+                <option>Regiobank</option>
+                <option>SNS Bank</option>
+                <option>Triodos Bank</option>
+            </select>
         </div>
     </div>
     <div class="col-2">
@@ -39,6 +97,30 @@ $verzendkosten = 2;
             <p>Totaal : <?php print sprintf("€ %.2f",$price + $verzendkosten); ?></p>
             <input class="button2" type="submit" name="submit" value="Plaatsen Bestelling">
         </div>
-    </div>  
+    </div>
 </form>
+
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Het artikel is toegevoegd aan het winkelmandje</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p><?php print $StockItem['StockItemName'] ?></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" style="color: white" data-dismiss="modal">Verder winkelen</button>
+                    <button class="button1" onclick="window.location.href='cart.php'">Naar winkelwagen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <?php include __DIR__ . "/footer.php"; ?>
