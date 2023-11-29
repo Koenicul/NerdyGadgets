@@ -37,3 +37,12 @@ function amountOfItems($cart) {
     }
     return $amount;
 }
+
+function decrementStockitems($id, $databaseConnection, $quantity) {
+
+    $Query = "UPDATE stockitemholdings SET QuantityOnHand = GREATEST(QuantityOnHand - $quantity, 0) WHERE stockitemid = ?";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, "i", $id);
+    mysqli_stmt_execute($Statement);
+}
