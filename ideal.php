@@ -280,7 +280,7 @@
                                 <div class="style-214">
                                     <h1 class="style-215">Betaling geslaagd.</h1>
                                     <p class="style-216">U word atomatish doorgestuurd naar de webwinkel. als u niet binnen 10 secondes word terugestuurd kunt u ook op deze knop drukken</p>
-                                    <a href="checkout.php">
+                                    <a href="index.php">
                                         <input class="button1" type="submit" value="Terug naar website">
                                     </a>
                                 </div>
