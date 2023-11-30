@@ -12,12 +12,12 @@ if (validateForm($_POST)) {
     $postalcode = $_POST['postalcode'];
     $postalcode = str_replace(" ", "", $postalcode);
 
-    $response = GetAddress($postalcode, $_POST["houseNumber"]);
-    if ($response) {
-        $response = json_decode($response, true);
-        $response["name"] = $_POST["name"];
+    $user = GetAddress($postalcode, $_POST["houseNumber"]);
+    if ($user) {
+        $user["name"] = $_POST["name"];
+        saveUser($user);
 
-        saveUser($response);
+        createUser($user, $databaseConnection);
 
         header("refresh:0.1;url=checkout.php");
     }
