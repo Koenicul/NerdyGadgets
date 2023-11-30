@@ -9,13 +9,13 @@ $verzendkosten = 2;
         
 if (isset($_POST["submit"]) && isset($_POST["bank"])) {
     foreach ($cart as $id => $quantity) {
-        //     decrementStockitems($id, $databaseConnection, $quantity);
-        // }
-        // $cart = array();
-        // saveCart($cart);
-
-        header("refresh:0.1;url=ideal.php");
+            decrementStockitems($id, $databaseConnection, $quantity);
     }
+    $cart = array();
+    saveCart($cart);
+    $_SESSION["couponCode"] = 0;
+
+    header("refresh:0.1;url=ideal.php");
 }
 ?>
 
@@ -57,7 +57,3 @@ if (isset($_POST["submit"]) && isset($_POST["bank"])) {
 </form>
 
 <?php include __DIR__ . "/footer.php"; ?>
-
-<!-- foreach ($cart as $id => $quantity){
-            decrementStockitems($id, $databaseConnection, $quantity);
-        } -->
