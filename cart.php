@@ -92,7 +92,7 @@ if (isset($_POST["deleteProduct"])) {
             <div class="col-2">
                 <div class="achter">
                     <p><h3>Overzicht</h3></p>
-                    <p>Artikelen (<?php print amountOfItems($cart); ?>) : <?php print sprintf("€ %.2f",$price) ?></p>
+                    <p>Artikelen (<?php print amountOfItems($cart); ?>) : <?php print sprintf("€ %.2f",$price + $_SESSION["couponCode"]) ?></p>
 
                     <!-- Kortingscodes -->
                     <p><form action="cart.php" method="post">
@@ -100,18 +100,11 @@ if (isset($_POST["deleteProduct"])) {
                         <input class="trans form-control" type="text" name="couponCode">
                         <input class="button2" type="submit" value="Kortingscode gebruiken">
                     </form></p>
-                    <?php if ($korting != 0) { ?>
-                        <p>Korting : <?php print sprintf("€ %.2f", $korting) ?></p>
+                    <?php if ($_SESSION["couponCode"] != 0) { ?>
+                        <p>Korting : <?php print sprintf("€ %.2f", $_SESSION["couponCode"]) ?></p>
                     <?php } ?>
                     <hr class="solid">
-                    <p>Totaal : <?php
-                        if (($price - $korting) < 0){
-                            $price = 0;
-                        }else{
-                            $price-=$korting;
-                        }
-
-                        print sprintf("€ %.2f",$price); ?></p>
+                    <p>Totaal : <?php print sprintf("€ %.2f",$price); ?></p>
                     <a href="userdata.php">
                         <input class="button2" type="submit" value="Betalen">
                     </a>
