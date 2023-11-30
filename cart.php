@@ -36,7 +36,7 @@ if (isset($_POST["deleteProduct"])) {
             <div class="col-8">
                 <?php
                 $cart = getCart();
-                $price = getPrice($cart);
+                $price = 0;
                 $korting = 0;
 
                 if (isset($_POST["couponCode"])){
@@ -48,6 +48,8 @@ if (isset($_POST["deleteProduct"])) {
                 foreach ($cart as $id => $quantity) {
                     $StockItem = getStockItem($id, $databaseConnection);
                     $StockItemImage = getStockItemImage($id, $databaseConnection);
+
+                    $price += round($StockItem["SellPrice"], 2) * $quantity;
                     ?>
 
                     <div id="ProductFrame">
@@ -92,7 +94,7 @@ if (isset($_POST["deleteProduct"])) {
             <div class="col-2">
                 <div class="achter">
                     <p><h3>Overzicht</h3></p>
-                    <p>Artikelen (<?php print amountOfItems($cart); ?>) : <?php print sprintf("€ %.2f",$price + $_SESSION["couponCode"]) ?></p>
+                    <p>Artikelen (<?php print amountOfItems($cart); ?>) : <?php print sprintf("€ %.2f",$price) ?></p>
 
                     <!-- Kortingscodes -->
                     <p><form action="cart.php" method="post">
@@ -104,7 +106,14 @@ if (isset($_POST["deleteProduct"])) {
                         <p>Korting : <?php print sprintf("€ %.2f", $_SESSION["couponCode"]) ?></p>
                     <?php } ?>
                     <hr class="solid">
-                    <p>Totaal : <?php print sprintf("€ %.2f",$price); ?></p>
+                    <p>Totaal : <?php
+                        if (($price - $_SESSION["couponCode"]) < 0){
+                            $price = 0;
+                        }else{
+                            $price -= $_SESSION["couponCode"];
+                        }
+
+                        print sprintf("€ %.2f",$price); ?></p>
                     <a href="userdata.php">
                         <input class="button2" type="submit" value="Betalen">
                     </a>
