@@ -45,6 +45,12 @@ function getPrice($cart) {
         $StockItem = getStockItem($item, $databaseConnection);
         $price += round($StockItem["SellPrice"], 2) * $quantity;
     }
+    if (isset($_SESSION["couponCode"])) {
+        $price -= $_SESSION["couponCode"];
+    }
+    if ($price < 0) {
+        $price = 0;
+    }
     return $price;
 }
 
