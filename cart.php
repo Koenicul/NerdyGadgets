@@ -28,10 +28,11 @@ if (isset($_POST["deleteProduct"])) {
 </script>
 
 <div class="p-2">
-    <h1>Inhoud Winkelwagen</h1>
+    
     <?php
     if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
         ?>
+        <h1>Inhoud Winkelwagen</h1>
         <div class="row">
             <div class="col-8">
                 <?php
