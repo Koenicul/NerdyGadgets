@@ -42,6 +42,7 @@ if (isset($_POST["deleteProduct"])) {
                 if (isset($_POST["couponCode"])){
                     if ($_POST["couponCode"] == "korting123"){
                         $korting = 25;
+                        $_SESSION["korting"] = $korting;
                     }
                 }
                 foreach ($cart as $id => $quantity) {

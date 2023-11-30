@@ -12,6 +12,12 @@ $dotenv->load();
 
 $cart = getCart();
 $price = getPrice($cart);
+if (isset($_SESSION["korting"])) {
+    $price -= $_SESSION["korting"];
+    if ($price < 0) {
+        $price = 0;
+    }
+}
 $verzendkosten = 2;
 
 
@@ -67,7 +73,6 @@ if(isset($_POST['submit'])) {
 }
 
 ?>
-<h1 class="gegevens">Uw gegevens </h1>
     <div class="containers">
 
     <form method="post" class="form">
