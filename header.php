@@ -11,6 +11,7 @@ function getVoorraadTekst($actueleVoorraad) {
         return "Voorraad: $actueleVoorraad";
     }
 }
+createCustomerAddressTable($databaseConnection);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,19 +58,17 @@ function getVoorraadTekst($actueleVoorraad) {
 
 
 
-<!-- code voor US3: zoeken-->
+<!-- code voor US3: zoeken en winkel wagen -->
         <ul id="ul-class-navigation">
             <li>
                 <a href="cart.php" class="HrefDecorations"><i class="fas fa-shopping-cart"></i> Winkelwagen</a>
             </li>
-<!-- einde code voor US3 zoeken -->
-<!-- begin winkelmandje laten zien -->
             <li>
                 <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Zoeken</a>
             </li>
         </ul>
 
-
+<!-- einde code voor US3 zoeken -->
 
     </div>
     <div class="row" id="Content">

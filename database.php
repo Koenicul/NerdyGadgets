@@ -20,6 +20,52 @@ function connectToDatabase() {
     return $Connection;
 }
 
+function createCustomerAddressTable($databaseConnection) {
+    $Query = "
+                CREATE TABLE IF NOT EXISTS customersnl (
+    CustomerID INT NOT NULL,
+    CustomerName VARCHAR(50) NOT NULL,
+    AccountOpeningDate DATE NOT NULL,
+    City VARCHAR(30) NOT NULL,
+    Street VARCHAR(30) NOT NULL,
+    Postalcode VARCHAR(6) NOT NULL,
+    AddressNumber INT NOT NULL,
+    AddressNumber2 INT NULL,
+    PRIMARY KEY (CustomerID)
+);";
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_execute($Statement);
+}
+
+
+
+function addCustomerData($databaseConnection, $data) {
+    $CustomerID = $databaseConnection->query("SELECT MAX(CustomerID) AS max from customersnl")->fetch_assoc()['max'] + 1;
+    $CustomerName = $data['CustomerName'];
+    $AccountOpeningDate = $data['AccountOpeningDate'];
+    $City = $data['City'];
+    $Street = $data['Street'];
+    $Postalcode = $data['Postalcode'];
+    $AddressNumber = $data['AddressNumber'];
+
+    $Query = "
+                INSERT INTO customersnl (CustomerID, CustomerName, AccountOpeningDate, City, Street, Postalcode, AddressNumber)
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, 'isssssi',
+    $CustomerID,
+    $CustomerName,
+    $AccountOpeningDate,
+    $City,
+    $Street,
+    $Postalcode,
+    $AddressNumber
+    );
+    mysqli_stmt_execute($Statement);
+}
+
+/* voor getHeaderStockGroups */
+
 function getHeaderStockGroups($databaseConnection) {
     $Query = "
                 SELECT StockGroupID, StockGroupName, ImagePath

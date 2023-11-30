@@ -1,7 +1,4 @@
 <!-- dit bestand bevat alle code voor de pagina die één product laat zien -->
-
-
-
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
@@ -25,7 +22,6 @@ if (isset($_POST["deleteProduct"])) {
 ?>
 <script>
   function validateNum(input, max) {
-    console.log(input.value);
     if (input.value < 1) input.value = 1;
     if (input.value > max) input.value = max;
   } 
@@ -40,7 +36,7 @@ if (isset($_POST["deleteProduct"])) {
             <div class="col-8">
                 <?php
                 $cart = getCart();
-                $price = 0;
+                $price = getPrice($cart);
                 $korting = 0;
 
                 if (isset($_POST["couponCode"])){
@@ -51,8 +47,6 @@ if (isset($_POST["deleteProduct"])) {
                 foreach ($cart as $id => $quantity) {
                     $StockItem = getStockItem($id, $databaseConnection);
                     $StockItemImage = getStockItemImage($id, $databaseConnection);
-
-                    $price += round($StockItem["SellPrice"], 2) * $quantity;
                     ?>
 
                     <div id="ProductFrame">
@@ -117,7 +111,9 @@ if (isset($_POST["deleteProduct"])) {
                         }
 
                         print sprintf("€ %.2f",$price); ?></p>
-                    <input class="button2" type="submit" value="Betalen">
+                    <a href="checkout.php">
+                        <input class="button2" type="submit" value="Betalen">
+                    </a>
                 </div>
             </div>
         </div>
