@@ -1,7 +1,7 @@
 <?php
-//header( "refresh:10;url=index.php" );
+header("refresh:10;url=index.php");
 ?>
-<link rel="stylesheet" href="idealStyle.css">
+<link rel="stylesheet" href="Public/CSS/idealStyle.css">
 </head>
 
 <body class="style-0">
