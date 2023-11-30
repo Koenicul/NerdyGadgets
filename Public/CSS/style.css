@@ -536,16 +536,15 @@ ul#ul-class-price li {
 
 }
 
-/** button css einde  **/
 
-/** begin container button **/
+
+/** button css einde **/
 .button-container {
     text-align: center;
-    margin-top: 40px !important; 
-}
-/** einde container button **/
+    margin-top: 40px !important; /* Je kunt deze marge aanpassen aan jouw behoeften */
 
-/** button css start winkelwagen **/
+}
+
 .button1 {
     color: #ffffff;
     border: 2px solid #676EFFFF;
@@ -582,16 +581,14 @@ ul#ul-class-price li {
     background-color: #676EFFFF;
     color: white;
 }
-/** einde button css einde winkelwagen **/
+/** winkelwagen leeg tekst begin **/
 
-/** begin winkelwagen leeg tekst begin **/
 .leeg{
     text-align: center;
     font-weight: 500;
 }
-/** einde winkelwagen leeg tekst einde **/
+/** winkelwagen leeg tekst einde **/
 
-/** begin overzicht schema winkelwagen **/
 .achter{
     border:  solid 1px white;
     border-radius: 15px;
@@ -602,31 +599,23 @@ ul#ul-class-price li {
     top: 220px;
     display: block;
 }
-/** einde overzicht schema winkelwagen **/
 .trans{
     margin-bottom: 10px;
 }
 hr.solid {
     border-top: 3px solid #ffffff;
 }
-/** egin nummer input winkelwagen **/
 .numb{
     width: 70px !important;
 }
-/** einde nummer input winkelwagen **/
 .HrefDecorations{
     margin-left: 10px;
 }
-
-/** begin vooraad winkelwagen **/
 .voorraad{
     position: absolute;
     bottom: 0;
     left: 250px;
 }
-/** einde vooraad winkelwagen **/
-
-/* Begin popup vederwinkelen of naar winkelwagen */
 .modal-content {
     border-radius: 25px !important;
 }
@@ -637,4 +626,38 @@ hr.solid {
     color: white !important;
     opacity: 100% !important;
 }
-/* Einde popup vederwinkelen of naar winkelwagen */
+/*
+Dit werkt
+ */
+.containers {
+    max-width: 50%;
+    margin: 50px auto;
+    display: flex;
+    background: rgb(35, 35, 47);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(217, 217, 217, 0.1);
+    position: relative;
+    height: 450px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 20px;
+}
+
+.achters {
+    width: 300px;
+    height: 350px;
+    border: solid 1px white;
+    border-radius: 15px;
+    padding: 15px;
+    position: relative;
+    right: -550px;
+    top: -350px;
+
+}
+.gegevens{
+    margin-left: 10px;
+}
