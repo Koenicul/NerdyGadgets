@@ -42,6 +42,7 @@ if (isset($_POST["deleteProduct"])) {
                 if (isset($_POST["couponCode"])){
                     if ($_POST["couponCode"] == "korting123"){
                         $korting = 25;
+                        $_SESSION["couponCode"] = $korting;
                     }
                 }
                 foreach ($cart as $id => $quantity) {
@@ -111,7 +112,7 @@ if (isset($_POST["deleteProduct"])) {
                         }
 
                         print sprintf("€ %.2f",$price); ?></p>
-                    <a href="checkout.php">
+                    <a href="userdata.php">
                         <input class="button2" type="submit" value="Betalen">
                     </a>
                 </div>
