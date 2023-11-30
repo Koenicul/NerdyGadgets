@@ -11,10 +11,11 @@ function GetAddress($postalcode, $houseNumber)
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
     $response = curl_exec($ch);
+    $response = json_decode($response, true);
 
     curl_close($ch);
 
-    if ($response != '{"error":"invalid postcode."}') {
+    if (!array_key_exists('error', $response)) {
         return $response;
     }
 
