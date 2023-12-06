@@ -5,12 +5,15 @@ include "addressFunctions.php";
 $user = getUser();
 $cart = getCart();
 $price = getPrice($cart);
+$user = getUser();
 $verzendkosten = 2;
         
 if (isset($_POST["submit"]) && isset($_POST["bank"])) {
     foreach ($cart as $id => $quantity) {
             decrementStockitems($id, $databaseConnection, $quantity);
     }
+
+    createUser($user, $databaseConnection);
     $cart = array();
     saveCart($cart);
     $_SESSION["couponCode"] = 0;

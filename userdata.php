@@ -17,8 +17,6 @@ if (validateForm($_POST)) {
         $user["name"] = $_POST["name"];
         saveUser($user);
 
-        createUser($user, $databaseConnection);
-
         header("refresh:0.1;url=checkout.php");
     }
 }

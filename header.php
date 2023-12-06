@@ -4,6 +4,8 @@ session_start();
 include "database.php";
 $databaseConnection = connectToDatabase();
 
+createCustomerAddressTable($databaseConnection);
+
 function getVoorraadTekst($actueleVoorraad) {
     if ($actueleVoorraad > 1000) {
         return "Ruime voorraad beschikbaar.";

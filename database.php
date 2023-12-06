@@ -96,7 +96,24 @@ function getStockItemImage($id, $databaseConnection) {
     return $R;
 }
 
+function createCustomerAddressTable($databaseConnection) {
+    $Query = "
+    CREATE TABLE IF NOT EXISTS customersnl (
+    CustomerID INT NOT NULL,
+    CustomerName VARCHAR(50) NOT NULL,
+    AccountOpeningDate DATE NOT NULL,
+    City VARCHAR(30) NOT NULL,
+    Street VARCHAR(30) NOT NULL,
+    Postalcode VARCHAR(6) NOT NULL,
+    HouseNumber INT NOT NULL,
+    PRIMARY KEY (CustomerID)
+);";
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_execute($Statement);
+}
+
 function createUser($user , $databaseConnection) {
+    $customerID = $databaseConnection->query("SELECT MAX(CustomerID) AS max from customersnl")->fetch_assoc()['max'] + 1;
     $name = $user["name"];
     $city = $user["city"];
     $street = $user["street"];
@@ -104,9 +121,9 @@ function createUser($user , $databaseConnection) {
     $houseNumber = $user["house_number"];
 
     $Query = "
-        INSERT INTO customersnl (CustomerName, AccountOpeningDate, City, Street, Postalcode, HouseNumber) VALUES (?, now(), ?, ?, ?, ?)
+        INSERT INTO customersnl (CustomerID, CustomerName, AccountOpeningDate, City, Street, Postalcode, HouseNumber) VALUES (?, ?, now(), ?, ?, ?, ?)
     ";
     $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, "ssssi", $name, $city, $street, $postalcode, $houseNumber);
+    mysqli_stmt_bind_param($Statement, "issssi", $customerID, $name, $city, $street, $postalcode, $houseNumber);
     mysqli_stmt_execute($Statement);
 }

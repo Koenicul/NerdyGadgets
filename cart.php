@@ -103,16 +103,18 @@ if (isset($_POST["deleteProduct"])) {
                         <input class="trans form-control" type="text" name="couponCode">
                         <input class="button2" type="submit" value="Kortingscode gebruiken">
                     </form></p>
-                    <?php if ($_SESSION["couponCode"] != 0) { ?>
+                    <?php if (isset($_SESSION["couponCode"]) && $_SESSION["couponCode"] != 0) { ?>
                         <p>Korting : <?php print sprintf("€ %.2f", $_SESSION["couponCode"]) ?></p>
-                    <?php } ?>
-                    <hr class="solid">
-                    <p>Totaal : <?php
+                    <?php
                         if (($price - $_SESSION["couponCode"]) < 0){
                             $price = 0;
                         }else{
                             $price -= $_SESSION["couponCode"];
                         }
+                    } ?>
+                    <hr class="solid">
+                    <p>Totaal : <?php
+
 
                         print sprintf("€ %.2f",$price); ?></p>
                     <a href="userdata.php">
