@@ -63,7 +63,6 @@ function decrementStockitems($id, $databaseConnection, $quantity) {
     mysqli_stmt_bind_param($Statement, "i", $id);
     mysqli_stmt_execute($Statement);
 }
-<<<<<<< Updated upstream
 class Database
 {
     public $connection;
@@ -183,7 +182,7 @@ class Authentication
 
         return null;
     }
-=======
+
 
 }
 
@@ -201,5 +200,4 @@ function applyCouponCode($price, $couponCode)
     }
     return $discountedPrice;
 
->>>>>>> Stashed changes
 }

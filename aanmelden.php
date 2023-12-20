@@ -56,12 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html>
 <head>
     <title>Slide Navbar</title>
-    <link rel="stylesheet" type="text/css" href="slide navbar style.css">
+    <link rel="stylesheet" type="text/css" href="help.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="main">
+<div class="trans">
     <input type="checkbox" id="chk" aria-hidden="true">
 
     <div class="signup">
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input class="login1" type="text" name="houseNumber" placeholder="Huisnummer">
             <input class="login1" type="password" name="password_new" placeholder="Wachtwoord">
             <input class="login1" type="password" name="password_new_check" placeholder="Controle wachtwoord">
-            <input class="button2" type="submit" name="submit" value="Aanmelden">
+            <input class="button3" type="submit" name="submit" value="Aanmelden">
         </form>
     </div>
 </div>

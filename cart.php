@@ -113,18 +113,9 @@ if (isset($_POST["deleteProduct"])) {
                         <input class="trans form-control" type="text" name="couponCode" placeholder="Kortingscode">
                         <input class="button2" type="submit" value="Kortingscode gebruiken">
                     </form></p>
-<<<<<<< Updated upstream
-                    <?php if ($_SESSION["couponCode"] != 0) { ?>
-                        <p>Korting : <?php print sprintf("€ %.2f", $_SESSION["couponCode"]) ?></p>
-                    <?php } ?>
-                    <hr class="solid">
-                    <p>Totaal : <?php
-                        if (($price - $_SESSION["couponCode"]) < 0){
-                            $price = 0;
-                        }else{
-                            $price -= $_SESSION["couponCode"];
-                        }
-=======
+
+
+
                     <?php foreach ($couponCodes as $couponCode => $korting);
                     if (array_key_exists($couponCode, $couponCodes)){ ?>
                         <p>Korting : <?php print sprintf("€ %.2f", $actualDiscount) ?></p>
@@ -132,7 +123,7 @@ if (isset($_POST["deleteProduct"])) {
                     <hr class="solid">
                     <p>Totaal : <?php
 
->>>>>>> Stashed changes
+
 
                         $_SESSION["discountedPrice"] = $discountedPrice;
                         print sprintf("€ %.2f",$discountedPrice); ?></p>
