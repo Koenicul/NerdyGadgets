@@ -17,7 +17,7 @@ if (validateForm($_POST)) {
         $user["name"] = $_POST["name"];
         saveUser($user);
 
-        createUser($user, $databaseConnection);
+//        createUser($user, $databaseConnection);
 
         header("refresh:0.1;url=checkout.php");
     }
@@ -25,7 +25,7 @@ if (validateForm($_POST)) {
 $user = getUser();
 
 
-$email = $_SESSION['user_email'];
+
 
 $query = "
     SELECT CustomerName, DeliveryPostalCode, DeliveryAddressLine2
@@ -44,14 +44,11 @@ mysqli_stmt_execute($statement);
 // Resultaten ophalen
 mysqli_stmt_bind_result($statement, $customerName, $deliveryPostalCode, $deliveryAddressLine2);
 
-// Fetchen van resultaten
-if (mysqli_stmt_fetch($statement)) {
-    // Afdrukken van de resultaten
     $user["name"] = $customerName;
-    $user["postcode"] = $deliveryPostalCode;
-    $user["house_number"] = $deliveryAddressLine2;
+    $user["postcode"] = $deliveryAddressLine2;
+    $user["house_number"] = $deliveryPostalCode;
 
-}
+
 
 
 ?>
@@ -62,7 +59,7 @@ if (mysqli_stmt_fetch($statement)) {
             <div>
                 <div class="form-group">
                     <label>Naam*</label>
-                    <input class="form-control" type="text" name="name" required placeholder="Naam" value=" <?php if (isset($user["name"]) && $user["name"] != "") { print $user["name"]; } ?>">
+                    <input class="form-control" type="text" name="name" required placeholder="Naam" value="<?php if (isset($user["name"]) && $user["name"] != "") { print $user["name"]; } ?>">
                 </div>
 
                 <div class="form-group">

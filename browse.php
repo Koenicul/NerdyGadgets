@@ -76,17 +76,13 @@ $searchValues = explode(" ", $SearchString);
 
 $queryBuildResult = "";
 if ($SearchString != "") {
-    for ($i = 0; $i < count($searchValues); $i++) {
-        if ($i != 0) {
-            $queryBuildResult .= "AND ";
-        }
-        $queryBuildResult .= "SI.SearchDetails LIKE '%$searchValues[$i]%' ";
-    }
-    if ($queryBuildResult != "") {
-        $queryBuildResult .= " OR ";
-    }
+    $fullTextSearchTerms = implode(" ", $searchValues); // Join search terms for full-text search
+
+    $queryBuildResult .= "MATCH(SI.SearchDetails) AGAINST ('$fullTextSearchTerms' IN BOOLEAN MODE) ";
+
+    // Add OR condition for StockItemID search
     if ($SearchString != "" || $SearchString != null) {
-        $queryBuildResult .= "SI.StockItemID ='$SearchString'";
+        $queryBuildResult .= "OR SI.StockItemID ='$SearchString'";
     }
 }
 
