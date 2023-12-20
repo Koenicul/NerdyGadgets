@@ -20,20 +20,6 @@ function connectToDatabase() {
     return $Connection;
 }
 
-function getTemperature($databaseConnection) {
-    $Query = "
-                SELECT Temperature FROM coldroomtemperatures
-                ORDER BY coldroomtemperatureid DESC
-                LIMIT 1;
-    ";
-    $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_execute($Statement);
-    $Result = mysqli_stmt_get_result($Statement);
-    $Temperature = mysqli_fetch_assoc($Result);
-    return $Temperature['Temperature'];
-
-}
-
 function getHeaderStockGroups($databaseConnection) {
     $Query = "
                 SELECT StockGroupID, StockGroupName, ImagePath
@@ -74,7 +60,6 @@ function getStockItem($id, $databaseConnection) {
             StockItemName,
             QuantityOnHand,
             SearchDetails, 
-            IsChillerStock,
             (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields, SI.Video,
             (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
             FROM stockitems SI 
@@ -111,20 +96,20 @@ function getStockItemImage($id, $databaseConnection) {
     return $R;
 }
 
-function createUser($user , $databaseConnection) {
-    $name = $user["name"];
-    $city = $user["city"];
-    $street = $user["street"];
-    $postalcode = $user["postcode"];
-    $houseNumber = $user["house_number"];
-
-    $Query = "
-        INSERT INTO customersnl (CustomerName, AccountOpeningDate, City, Street, Postalcode, HouseNumber) VALUES (?, now(), ?, ?, ?, ?)
-    ";
-    $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, "ssssi", $name, $city, $street, $postalcode, $houseNumber);
-    mysqli_stmt_execute($Statement);
-}
+//function createUser($user , $databaseConnection) {
+//    $name = $user["name"];
+//    $city = $user["city"];
+//    $street = $user["street"];
+//    $postalcode = $user["postcode"];
+//    $houseNumber = $user["house_number"];
+//
+//    $Query = "
+//        INSERT INTO customersnl (CustomerName, AccountOpeningDate, City, Street, Postalcode, HouseNumber) VALUES (?, now(), ?, ?, ?, ?)
+//    ";
+//    $Statement = mysqli_prepare($databaseConnection, $Query);
+//    mysqli_stmt_bind_param($Statement, "ssssi", $name, $city, $street, $postalcode, $houseNumber);
+//    mysqli_stmt_execute($Statement);
+//}
 function insertIntoOrder($databaseConnection) {
     $customerID = 1;
     $Query = "INSERT INTO orders(customerid, salespersonpersonid, contactpersonid, orderdate, expecteddeliverydate, isundersupplybackordered, lasteditedby, lasteditedwhen)
@@ -144,13 +129,13 @@ VALUES(?, ?, ' ', 7, ?, 15.000, ?, 4, '2013-01-02 11:00:00')";
     mysqli_stmt_execute($Statement);
 }
 
-function postReview($id, $databaseConnection, $comment, $aanbevelen, $Email) {
+function postReview($id, $databaseConnection, $comment, $aanbevelen) {
 
-    $Query = "INSERT INTO reviews (stockitemid, aanbeveling, contents, plaatsingsdatum, email)
-              VALUES (?, ?, ?, now(), ?)";
+    $Query = "INSERT INTO reviews (stockitemid, aanbeveling, contents, customerid, plaatsingsdatum)
+              VALUES (?, ?, ?, 1, now())";
 
     $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, 'iiss', $id, $aanbevelen, $comment, $Email);
+    mysqli_stmt_bind_param($Statement, 'ids', $id, $aanbevelen, $comment);
     mysqli_stmt_execute($Statement);
 }
 
@@ -158,25 +143,11 @@ function getReview($id, $databaseConnection) {
 
     $Query = "SELECT *
                 FROM reviews r
+                JOIN customersnl c ON r.customerid = c.CustomerID
                 WHERE stockitemid = ?";
 
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_bind_param($Statement, 'i', $id);
-    mysqli_stmt_execute($Statement);
-    $R = mysqli_stmt_get_result($Statement);
-    $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
-
-    return $R;
-}
-
-function getCustomer($email, $databaseConnection) {
-
-    $Query = "SELECT fullname 
-    FROM people
-    WHERE EmailAddress = ?";
-
-    $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, 's', $email);
     mysqli_stmt_execute($Statement);
     $R = mysqli_stmt_get_result($Statement);
     $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
