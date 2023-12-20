@@ -231,7 +231,7 @@ foreach ($reviews as $review) {
     if ($aanbeveling == 1){
         echo "<p class='midText'>Ik beveel dit product aan.</p>";
     }else{
-        echo "<p class='midText'>Ik beveel dit niet product </p>";
+        echo "<p class='midText'>Ik beveel dit product niet aan.</p>";
     }
     echo "Datum: $datum <br>";
     echo "<br>$contents <br>";
