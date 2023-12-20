@@ -72,6 +72,11 @@ function getVoorraadTekst($actueleVoorraad) {
                 <a href="browse.php" class="HrefDecoration">
                      Zoeken</a>
             </li>
+             <li>
+                <i class="fas fa-phone phone"></i>
+                <a href="support.php" class="HrefDecoration">
+                     Support</a>
+            </li>
             <li>
             <?php
             if (isset($_SESSION['user_email'])) {
