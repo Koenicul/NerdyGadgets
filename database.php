@@ -20,6 +20,20 @@ function connectToDatabase() {
     return $Connection;
 }
 
+function getTemperature($databaseConnection) {
+    $Query = "
+                SELECT Temperature FROM coldroomtemperatures
+                ORDER BY coldroomtemperatureid DESC
+                LIMIT 1;
+    ";
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_execute($Statement);
+    $Result = mysqli_stmt_get_result($Statement);
+    $Temperature = mysqli_fetch_assoc($Result);
+    return $Temperature['Temperature'];
+
+}
+
 function getHeaderStockGroups($databaseConnection) {
     $Query = "
                 SELECT StockGroupID, StockGroupName, ImagePath
@@ -60,6 +74,7 @@ function getStockItem($id, $databaseConnection) {
             StockItemName,
             QuantityOnHand,
             SearchDetails, 
+            IsChillerStock,
             (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields, SI.Video,
             (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
             FROM stockitems SI 
