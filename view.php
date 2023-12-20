@@ -220,10 +220,10 @@ if ($reviews != array()) {
 }
 
 foreach ($reviews as $review) {
-    $naam = getCustomer($review['email'], $databaseConnection);
-    $contents = $review['contents'];
-    $aanbeveling = $review['aanbeveling'];
-    $datum = $review['plaatsingsdatum'];
+    $naam = getCustomer($review['Email'], $databaseConnection);
+    $contents = $review['Contents'];
+    $aanbeveling = $review['Recommendation'];
+    $datum = $review['PostDate'];
 ?>
         <div id="reviewbox">
         <h1 class="StockItemID">Door: <?php print($naam[0]['fullname']); ?></h1>

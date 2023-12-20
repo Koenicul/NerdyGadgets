@@ -131,7 +131,7 @@ VALUES(?, ?, ' ', 7, ?, 15.000, ?, 4, '2013-01-02 11:00:00')";
 
 function postReview($id, $databaseConnection, $comment, $aanbevelen, $Email) {
 
-    $Query = "INSERT INTO reviews (stockitemid, aanbeveling, contents, plaatsingsdatum, email)
+    $Query = "INSERT INTO reviews (StockItemId, Recommendation, Contents, PostDate, Email)
               VALUES (?, ?, ?, now(), ?)";
 
     $Statement = mysqli_prepare($databaseConnection, $Query);
@@ -143,7 +143,7 @@ function getReview($id, $databaseConnection) {
 
     $Query = "SELECT *
                 FROM reviews r
-                WHERE stockitemid = ?";
+                WHERE StockItemId = ?";
 
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_bind_param($Statement, 'i', $id);
