@@ -186,7 +186,7 @@ if ($ingelogd){
     <label>
         Ik beveel dit product aan: <input type="checkbox" class="checkbox" id="aanbeveling" name="aanbeveling" value="1">
     </label>
-    <textarea class="reviewtext" name="comment"></textarea>
+    <textarea class="reviewtext" name="comment" required></textarea>
         <input type="submit" class="reviewbutton" name="reviewpost">
     </form>
 </div>
