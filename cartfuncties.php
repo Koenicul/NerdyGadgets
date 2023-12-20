@@ -63,6 +63,7 @@ function decrementStockitems($id, $databaseConnection, $quantity) {
     mysqli_stmt_bind_param($Statement, "i", $id);
     mysqli_stmt_execute($Statement);
 }
+<<<<<<< Updated upstream
 class Database
 {
     public $connection;
@@ -182,4 +183,23 @@ class Authentication
 
         return null;
     }
+=======
+
+}
+
+function applyCouponCode($price, $couponCode)
+{
+
+    global $couponCodes;
+
+    $discountedPrice = $price;
+    if (array_key_exists($couponCode, $couponCodes)) {
+        $korting = $couponCodes[$couponCode];
+        $korting2 = ($price * ($korting / 100));
+        $korting2 = round($korting2, 2);
+        $discountedPrice = $price - $korting2;
+    }
+    return $discountedPrice;
+
+>>>>>>> Stashed changes
 }
