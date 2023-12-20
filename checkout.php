@@ -1,6 +1,5 @@
 <?php include __DIR__ . "/header.php";
 include "cartfuncties.php";
-include "addressFunctions.php";
 
 $user = getUser();
 $cart = getCart();

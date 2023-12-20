@@ -1,8 +1,7 @@
 <?php
 function GetAddress($postalcode, $houseNumber)
 {
-//    $api_key = $_ENV["TOKEN"];
-    $api_key = 'cc61a9f5-a7dc-47a8-80d0-11522c04786f';
+    $api_key = $_ENV["TOKEN"];
     $url = "https://json.api-postcode.nl?postcode=". $postalcode ."&number=" . $houseNumber;
     $ch = curl_init($url);
     $headers = array(

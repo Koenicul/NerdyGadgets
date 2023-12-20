@@ -1,12 +1,12 @@
 <?php include __DIR__ . "/header.php";
-require "cartfuncties.php";
-
 require __DIR__ . '/vendor/autoload.php';
 
 use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
+
+require "cartfuncties.php";
 
 if (validateForm($_POST)) {
     $postalcode = $_POST['postalcode'];
@@ -24,32 +24,32 @@ if (validateForm($_POST)) {
 }
 $user = getUser();
 
+if (isset($_SESSION['user_email'])) {
+    $email = $_SESSION['user_email'];
 
-
-
-$query = "
+    $query = "
     SELECT CustomerName, DeliveryPostalCode, DeliveryAddressLine2
     FROM customers
     JOIN people ON customers.PrimaryContactPersonID = people.PersonID
     WHERE people.EmailAddress = ?";
 
-$statement = mysqli_prepare($databaseConnection, $query);
+    $statement = mysqli_prepare($databaseConnection, $query);
 
 // Binden van parameters
-mysqli_stmt_bind_param($statement, "s", $email);
+    mysqli_stmt_bind_param($statement, "s", $email);
 
 // Uitvoeren van de query
-mysqli_stmt_execute($statement);
+    mysqli_stmt_execute($statement);
 
 // Resultaten ophalen
-mysqli_stmt_bind_result($statement, $customerName, $deliveryPostalCode, $deliveryAddressLine2);
+    mysqli_stmt_bind_result($statement, $customerName, $deliveryPostalCode, $deliveryAddressLine2);
+
+    mysqli_stmt_fetch($statement);
 
     $user["name"] = $customerName;
     $user["postcode"] = $deliveryAddressLine2;
     $user["house_number"] = $deliveryPostalCode;
-
-
-
+}
 
 ?>
 
