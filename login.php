@@ -29,11 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
 	<title>Slide Navbar</title>
 	<link rel="stylesheet" type="text/css" href="slide navbar style.css">
-
+    <link rel="stylesheet" type="text/css" href="help.css">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-	<div class="main">
+	<div class="trans1">
 		<input type="checkbox" id="chk" aria-hidden="true">
 
 			<div class="signup">
@@ -41,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<label for="chk" aria-hidden="true">Login</label>
                     <input class="login1" type="email" name="emails" placeholder="Email">
                     <input class="login1" type="password" name="psw" placeholder="Password">
-                    <input class="button2" type="submit" name="submit" value="Inloggen">
-                    <a href="aanmelden.php">Geen account meld je aan</a>
+                    <input class="button3" type="submit" name="submit" value="Inloggen">
+                    <a class="janee" href="aanmelden.php">Geen account meld je aan</a>
 			</div>
 
 
