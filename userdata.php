@@ -56,7 +56,7 @@ if (mysqli_stmt_fetch($statement)) {
 
 ?>
 
-    <div class="achters">
+     <div class="achters">
         <p><h3>Jouw Gegevens</h3></p>
         <form method="post">
             <div>
@@ -81,6 +81,5 @@ if (mysqli_stmt_fetch($statement)) {
             </div>
         </form>
     </div>
-
 
 <?php include __DIR__ . "/footer.php"; ?>
