@@ -178,19 +178,19 @@ if (isset($_POST['reviewpost'])){
 <?php
 $ingelogd = true;
 if (isset($_SESSION['user_email'])){
-?>
-<div id="ReviewContent">
-<div id="ReviewDiv">
-    <h3>Review plaatsen</h3>
-    <form method="post"">
-    <label>
-        Ik beveel dit product aan: <input type="checkbox" class="checkbox" id="aanbeveling" name="aanbeveling" value="1">
-    </label>
-    <textarea class="reviewtext" name="comment" required></textarea>
-        <input type="submit" class="reviewbutton" name="reviewpost">
-    </form>
-</div>
-</div>
+    ?>
+    <div id="ReviewContent">
+        <div id="ReviewDiv">
+            <h3>Review plaatsen</h3>
+            <form method="post"">
+            <label>
+                Ik beveel dit product aan: <input type="checkbox" class="checkbox" id="aanbeveling" name="aanbeveling" value="1">
+            </label>
+            <textarea class="reviewtext" name="comment" required></textarea>
+            <input type="submit" class="reviewbutton" name="reviewpost">
+            </form>
+        </div>
+    </div>
 <?php }?>
 
 <script>
@@ -211,38 +211,38 @@ if (isset($_POST['addToCart'])) {
 <?php }
 ?>
 <div id="CenteredContent">
-<?php
-$reviews = getReview($StockItem["StockItemID"], $databaseConnection);
-if ($reviews != array()) {
-    print("<h2 id='reviewbox' style='padding: 15px;'>Reviews van dit product</h2>");
-}else{
-    print("<h2 id='reviewbox' style='padding: 15px;'>Dit product heeft nog geen reviews.</h2>");
-}
-
-foreach ($reviews as $review) {
-    $naam = getCustomer($review['Email'], $databaseConnection);
-    $contents = $review['Contents'];
-    $aanbeveling = $review['Recommendation'];
-    $datum = $review['PostDate'];
-?>
-        <div id="reviewbox">
-        <h1 class="StockItemID">Door: <?php print($naam[0]['fullname']); ?></h1>
-        <?php
-    if ($aanbeveling == 1){
-        echo "<p class='midText'>Ik beveel dit product aan.</p>";
-    }else{
-        echo "<p class='midText'>Ik beveel dit product niet aan.</p>";
-    }
-    echo "Datum: $datum <br>";
-    echo "<br>$contents <br>";
-    echo "<br><br>";
-    ?>
-        </div>
     <?php
-}
+    $reviews = getReview($StockItem["StockItemID"], $databaseConnection);
+    if ($reviews != array()) {
+        print("<h2 id='reviewbox' style='padding: 15px;'>Reviews van dit product</h2>");
+    }else{
+        print("<h2 id='reviewbox' style='padding: 15px;'>Dit product heeft nog geen reviews.</h2>");
+    }
 
-//
-?>
+    foreach ($reviews as $review) {
+        $naam = getCustomer($review['Email'], $databaseConnection);
+        $contents = $review['Contents'];
+        $aanbeveling = $review['Recommendation'];
+        $datum = $review['PostDate'];
+        ?>
+        <div id="reviewbox">
+            <h1 class="StockItemID">Door: <?php print($naam[0]['fullname']); ?></h1>
+            <?php
+            if ($aanbeveling == 1){
+                echo "<p class='midText'>Ik beveel dit product aan.</p>";
+            }else{
+                echo "<p class='midText'>Ik beveel dit product niet aan.</p>";
+            }
+            echo "Datum: $datum <br>";
+            echo "<br>$contents <br>";
+            echo "<br><br>";
+            ?>
+        </div>
+        <?php
+    }
+
+    //
+    ?>
 </div>
 <?php
 //

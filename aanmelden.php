@@ -90,3 +90,7 @@ if (count($errors) > 0) {
 ?>
 </body>
 </html>
+<?php
+//
+include __DIR__ . "/footer.php";
+?>

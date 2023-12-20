@@ -25,6 +25,7 @@ function getVoorraadTekst($actueleVoorraad) {
     <script src="Public/JS/bootstrap.min.js"></script>
     <script src="Public/JS/popper.min.js"></script>
     <script src="Public/JS/resizer.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-ukR6L5O5fQnyLbZc2cjAyMyYG1pxiS5cFXEdJ9XDnt+5Qti52BtXq3bySvAMvd8WqX1VQDElItWQuLV0d8UPRg==" crossorigin="anonymous" />
 
     <!-- Style sheets-->
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
@@ -72,11 +73,7 @@ function getVoorraadTekst($actueleVoorraad) {
                 <a href="browse.php" class="HrefDecoration">
                      Zoeken</a>
             </li>
-             <li>
-                <i class="fas fa-phone phone"></i>
-                <a href="support.php" class="HrefDecoration">
-                     Support</a>
-            </li>
+
             <li>
             <?php
             if (isset($_SESSION['user_email'])) {
@@ -88,8 +85,8 @@ function getVoorraadTekst($actueleVoorraad) {
             } else {
                 print('
                         <li>
-                            <a href="login.php" class="HrefDecoration" <i class="fas fa-sign-in-alt shopping-cart"></i> Inloggen</a>
-                        </li>'
+    <a href="login.php" class="HrefDecoration"><i class="fas fa-sign-in-alt shopping-cart"></i> Inloggen</a>
+</li>'
                 );
             }
             ?>
@@ -103,4 +100,15 @@ function getVoorraadTekst($actueleVoorraad) {
         <div class="col-12">
             <div id="SubContent">
 
+                <?php
+                $current_page = basename($_SERVER['PHP_SELF']);
+                ?>
 
+                <?php if ($current_page !== 'support.php') { ?>
+                    <div id="mybutton">
+                        <button class="feedback" onclick="window.location.href='support.php'">
+                             Support
+                        </button>
+                    </div>
+
+                <?php } ?>
