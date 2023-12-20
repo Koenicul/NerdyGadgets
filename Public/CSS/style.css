@@ -653,5 +653,76 @@ input:-webkit-autofill:active{
 input:-webkit-autofill{
     -webkit-text-fill-color: white !important;
 }
+#ReviewDiv {
+    background-color: rgba(35, 40, 47, 0.8);
+    margin: auto;
+    width: 70%;
+    padding: 10px;
+    border: 1px solid;
+    font-family: pt-sans, sans-serif;
+    font-size: 20px;
 
+}
+#ReviewContent {
+    margin: auto;
+    padding-top: 20%;
+}
+
+.reviewbutton {
+    color: #ffffff;
+    border: 2px solid #676EFFFF;
+    padding: 0.6em 1.5em;
+    background-color: transparent;
+    border-radius: .3em;
+    overflow: hidden;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    font-family: inherit;
+    z-index: 1;
+    margin: 0;
+    width: 25%;
+    height: 10%;
+    position: relative;
+    left: 75%;
+    margin-top: 2%;
+}
+
+.reviewbutton:hover{
+    background-color: #676EFFFF;
+    color: white;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 5px;
+}
+
+.checkboxtext{
+    position: relative;
+}
+
+.reviewtext {
+    position: relative;
+    top: 15px;
+    width: 80%;
+    height: 200px;
+    resize: none;
+}
+
+#reviewbox {
+    border-bottom: 1px solid #fff;
+}
+
+.midText {
+    font-weight: 500;
+    font-size: 20px;
+    font-family: inherit;
+}
+.center{
+    border: 1px solid rebeccapurple;
+    text-align: center;
+}
 /* Login */

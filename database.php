@@ -110,3 +110,47 @@ function createUser($user , $databaseConnection) {
     mysqli_stmt_bind_param($Statement, "ssssi", $name, $city, $street, $postalcode, $houseNumber);
     mysqli_stmt_execute($Statement);
 }
+function insertIntoOrder($databaseConnection) {
+    $customerID = 1;
+    $Query = "INSERT INTO orders(customerid, salespersonpersonid, contactpersonid, orderdate, expecteddeliverydate, isundersupplybackordered, lasteditedby, lasteditedwhen)
+VALUES(?, 13, 2247, now(), now(), 1, 11, now())";
+//1 moet klantennummer van Joshua worden
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, 'i', $customerID);
+    mysqli_stmt_execute($Statement);
+    return mysqli_insert_id($databaseConnection);
+}
+
+function insertIntoOrderLine($itemid, $quantity, $databaseConnection, $Orderid) {
+    $Query = "INSERT INTO orderlines(orderid, stockitemid, description, packagetypeid, quantity, taxrate, pickedquantity, lasteditedby, lasteditedwhen)
+VALUES(?, ?, ' ', 7, ?, 15.000, ?, 4, '2013-01-02 11:00:00')";
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, 'iiii', $Orderid, $itemid, $quantity, $quantity);
+    mysqli_stmt_execute($Statement);
+}
+
+function postReview($id, $databaseConnection, $comment, $aanbevelen) {
+
+    $Query = "INSERT INTO reviews (stockitemid, aanbeveling, contents, customerid, plaatsingsdatum)
+              VALUES (?, ?, ?, 1, now())";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, 'ids', $id, $aanbevelen, $comment);
+    mysqli_stmt_execute($Statement);
+}
+
+function getReview($id, $databaseConnection) {
+
+    $Query = "SELECT *
+                FROM reviews r
+                JOIN customersnl c ON r.customerid = c.CustomerID
+                WHERE stockitemid = ?";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, 'i', $id);
+    mysqli_stmt_execute($Statement);
+    $R = mysqli_stmt_get_result($Statement);
+    $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+
+    return $R;
+}

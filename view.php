@@ -5,6 +5,15 @@ include "cartfuncties.php";
 
 $StockItem = getStockItem($_GET['id'], $databaseConnection);
 $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
+
+if (isset($_POST['reviewpost'])){
+    if (isset($_POST['aanbeveling'])){
+        $aanbeveling = 1;
+    }else{
+        $aanbeveling = 0;
+    }
+    postReview($StockItem["StockItemID"], $databaseConnection, $_POST['comment'], $aanbeveling);
+}
 ?>
 
 <div id="CenteredContent">
@@ -166,6 +175,23 @@ $StockItemImage = getStockItemImage($_GET['id'], $databaseConnection);
         </div>
     </div>
 </div>
+<?php
+$ingelogd = true;
+if ($ingelogd){
+?>
+<div id="ReviewContent">
+<div id="ReviewDiv">
+    <h3>Review plaatsen</h3>
+    <form method="post"">
+    <label>
+        Ik beveel dit product aan: <input type="checkbox" class="checkbox" id="aanbeveling" name="aanbeveling" value="1">
+    </label>
+    <textarea class="reviewtext" name="comment" required></textarea>
+        <input type="submit" class="reviewbutton" name="reviewpost">
+    </form>
+</div>
+</div>
+<?php }?>
 
 <script>
     if ( window.history.replaceState ) {
@@ -182,9 +208,43 @@ if (isset($_POST['addToCart'])) {
             $('#myModal').modal('show');
         });
     </script>
-
 <?php }
+?>
+<div id="CenteredContent">
+<?php
+$reviews = getReview($StockItem["StockItemID"], $databaseConnection);
+if ($reviews != array()) {
+    print("<h2 id='reviewbox' style='padding: 15px;'>Reviews van dit product</h2>");
+}else{
+    print("<h2 id='reviewbox' style='padding: 15px;'>Dit product heeft nog geen reviews.</h2>");
+}
 
+foreach ($reviews as $review) {
+    $naam = $review['CustomerName'];
+    $contents = $review['contents'];
+    $aanbeveling = $review['aanbeveling'];
+    $datum = $review['plaatsingsdatum'];
+?>
+        <div id="reviewbox">
+        <h1 class="StockItemID">Door: <?php print $review["CustomerName"]; ?></h1>
+        <?php
+    if ($aanbeveling == 1){
+        echo "<p class='midText'>Ik beveel dit product aan.</p>";
+    }else{
+        echo "<p class='midText'>Ik beveel dit niet product </p>>";
+    }
+    echo "Datum: $datum <br>";
+    echo "<br>$contents <br>";
+    echo "<br><br>";
+    ?>
+        </div>
+    <?php
+}
 
+//
+?>
+</div>
+<?php
+//
 include __DIR__ . "/footer.php";
 ?>
