@@ -110,23 +110,6 @@ if (isset($_POST['reviewpost'])){
             <h3>Artikel beschrijving</h3>
             <p><?php print $StockItem['SearchDetails']; ?></p>
 
-            <?php  if ($StockItem['IsChillerStock'] == 1) { //###?>
-
-                <p id="Temperatuur"></p>
-                <script>
-                    const element = document.getElementById("Temperatuur")
-
-                    function fetchData() {
-                        fetch('Temperatuur.php')
-                            .then(response => response.text())
-                            .then(data => {
-                                element.innerHTML = "Temperatuur: " + data + " °C";
-                            });
-                    }
-                    setInterval(fetchData, 3000);
-                </script>
-<?php }//###?>
-
         </div>
         <div id="StockItemSpecifications">
             <h3>Artikel specificaties</h3>
@@ -237,10 +220,10 @@ if ($reviews != array()) {
 }
 
 foreach ($reviews as $review) {
-    $naam = getCustomer($review['email'], $databaseConnection);
-    $contents = $review['contents'];
-    $aanbeveling = $review['aanbeveling'];
-    $datum = $review['plaatsingsdatum'];
+    $naam = getCustomer($review['Email'], $databaseConnection);
+    $contents = $review['Contents'];
+    $aanbeveling = $review['Recommendation'];
+    $datum = $review['PostDate'];
 ?>
         <div id="reviewbox">
         <h1 class="StockItemID">Door: <?php print($naam[0]['fullname']); ?></h1>
