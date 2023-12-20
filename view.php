@@ -12,7 +12,7 @@ if (isset($_POST['reviewpost'])){
     }else{
         $aanbeveling = 0;
     }
-    postReview($StockItem["StockItemID"], $databaseConnection, $_POST['comment'], $aanbeveling);
+    postReview($StockItem["StockItemID"], $databaseConnection, $_POST['comment'], $aanbeveling, $_SESSION["user_email"]);
 }
 ?>
 
@@ -177,7 +177,7 @@ if (isset($_POST['reviewpost'])){
 </div>
 <?php
 $ingelogd = true;
-if ($ingelogd){
+if (isset($_SESSION['user_email'])){
 ?>
 <div id="ReviewContent">
 <div id="ReviewDiv">
@@ -220,13 +220,13 @@ if ($reviews != array()) {
 }
 
 foreach ($reviews as $review) {
-    $naam = $review['CustomerName'];
+    $naam = getCustomer($review['email'], $databaseConnection);
     $contents = $review['contents'];
     $aanbeveling = $review['aanbeveling'];
     $datum = $review['plaatsingsdatum'];
 ?>
         <div id="reviewbox">
-        <h1 class="StockItemID">Door: <?php print $review["CustomerName"]; ?></h1>
+        <h1 class="StockItemID">Door: <?php print($naam[0]['fullname']); ?></h1>
         <?php
     if ($aanbeveling == 1){
         echo "<p class='midText'>Ik beveel dit product aan.</p>";
