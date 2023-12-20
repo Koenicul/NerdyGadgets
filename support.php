@@ -6,7 +6,7 @@ include __DIR__ . "/header.php";
 <html>
 <head>
     <title>Support</title>
-<link rel="stylesheet" href="Public/CSS/supportCSS.css">
+<link rel="stylesheet" href="Public/CSS/style.css">
 
 </head>
 <body>
