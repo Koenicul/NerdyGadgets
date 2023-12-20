@@ -3,6 +3,7 @@ include "cartfuncties.php";
 
 $user = getUser();
 $cart = getCart();
+
 $price = getPrice($cart);
 $verzendkosten = 2;
         
@@ -12,7 +13,8 @@ if (isset($_POST["submit"]) && isset($_POST["bank"])) {
     }
     $cart = array();
     saveCart($cart);
-    $_SESSION["couponCode"] = 0;
+    $_SESSION["actualDiscount"] = 0;
+    $_SESSION["discountedPrice"] = 0;
 
     header("refresh:0.1;url=ideal.php");
 }

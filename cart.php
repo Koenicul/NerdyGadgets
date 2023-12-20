@@ -61,6 +61,7 @@ if (isset($_POST["deleteProduct"])) {
                     $actualDiscount = round($actualDiscount, 2);
                     $discountedPrice = round($discountedPrice, 2);
                     $_SESSION["actualDiscount"] = $actualDiscount;
+                    $_SESSION["discountedPrice"] = $discountedPrice;
                     ?>
 
                     <div id="ProductFrame">
@@ -125,7 +126,7 @@ if (isset($_POST["deleteProduct"])) {
 
 
 
-                        $_SESSION["discountedPrice"] = $discountedPrice;
+
                         print sprintf("€ %.2f",$discountedPrice); ?></p>
                     <a href="userdata.php">
                         <input class="button2" type="submit" value="Betalen">

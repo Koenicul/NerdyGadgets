@@ -129,13 +129,13 @@ VALUES(?, ?, ' ', 7, ?, 15.000, ?, 4, '2013-01-02 11:00:00')";
     mysqli_stmt_execute($Statement);
 }
 
-function postReview($id, $databaseConnection, $comment, $aanbevelen) {
+function postReview($id, $databaseConnection, $comment, $aanbevelen, $Email) {
 
-    $Query = "INSERT INTO reviews (stockitemid, aanbeveling, contents, customerid, plaatsingsdatum)
-              VALUES (?, ?, ?, 1, now())";
+    $Query = "INSERT INTO reviews (stockitemid, aanbeveling, contents, plaatsingsdatum, email)
+              VALUES (?, ?, ?, now(), ?)";
 
     $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, 'ids', $id, $aanbevelen, $comment);
+    mysqli_stmt_bind_param($Statement, 'iiss', $id, $aanbevelen, $comment, $Email);
     mysqli_stmt_execute($Statement);
 }
 
@@ -143,11 +143,25 @@ function getReview($id, $databaseConnection) {
 
     $Query = "SELECT *
                 FROM reviews r
-                JOIN customersnl c ON r.customerid = c.CustomerID
                 WHERE stockitemid = ?";
 
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_bind_param($Statement, 'i', $id);
+    mysqli_stmt_execute($Statement);
+    $R = mysqli_stmt_get_result($Statement);
+    $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+
+    return $R;
+}
+
+function getCustomer($email, $databaseConnection) {
+
+    $Query = "SELECT fullname 
+    FROM people
+    WHERE EmailAddress = ?";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, 's', $email);
     mysqli_stmt_execute($Statement);
     $R = mysqli_stmt_get_result($Statement);
     $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
