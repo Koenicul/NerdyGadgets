@@ -721,4 +721,8 @@ input:-webkit-autofill{
     font-size: 20px;
     font-family: inherit;
 }
+.center{
+    border: 1px solid rebeccapurple;
+    text-align: center;
+}
 /* Login */
