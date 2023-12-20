@@ -95,3 +95,18 @@ function getStockItemImage($id, $databaseConnection) {
 
     return $R;
 }
+
+function createUser($user , $databaseConnection) {
+    $name = $user["name"];
+    $city = $user["city"];
+    $street = $user["street"];
+    $postalcode = $user["postcode"];
+    $houseNumber = $user["house_number"];
+
+    $Query = "
+        INSERT INTO customersnl (CustomerName, AccountOpeningDate, City, Street, Postalcode, HouseNumber) VALUES (?, now(), ?, ?, ?, ?)
+    ";
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, "ssssi", $name, $city, $street, $postalcode, $houseNumber);
+    mysqli_stmt_execute($Statement);
+}

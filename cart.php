@@ -1,7 +1,4 @@
 <!-- dit bestand bevat alle code voor de pagina die één product laat zien -->
-
-
-
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
@@ -25,17 +22,17 @@ if (isset($_POST["deleteProduct"])) {
 ?>
 <script>
   function validateNum(input, max) {
-    console.log(input.value);
     if (input.value < 1) input.value = 1;
     if (input.value > max) input.value = max;
   } 
 </script>
 
 <div class="p-2">
-    <h1>Inhoud Winkelwagen</h1>
+    
     <?php
     if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
         ?>
+        <h1>Inhoud Winkelwagen</h1>
         <div class="row">
             <div class="col-8">
                 <?php
@@ -46,6 +43,7 @@ if (isset($_POST["deleteProduct"])) {
                 if (isset($_POST["couponCode"])){
                     if ($_POST["couponCode"] == "korting123"){
                         $korting = 25;
+                        $_SESSION["couponCode"] = $korting;
                     }
                 }
                 foreach ($cart as $id => $quantity) {
@@ -80,7 +78,7 @@ if (isset($_POST["deleteProduct"])) {
 
                         <!-- Wijzigen van hoeveelheid product -->
                         <ul class="list-inline">
-                            <li class="list-inline-item align-middle"><form action="cart.php" method="post"><input hidden name="id" value=<?php print $StockItem["StockItemID"] ?>><input class="numb form-control" style="width: fit-content" name="quantity" type="number" min="1" max="<?php print $StockItem['QuantityOnHand']; ?>" onchange="validateNum(this, <?php print $StockItem['QuantityOnHand']; ?>), this.form.submit()" value=<?php print $quantity; ?>></form></li>
+                            <li class="list-inline-item align-middle"><form action="cart.php" method="post"><input hidden name="id" value=<?php print $StockItem["StockItemID"] ?>><input class="numb form-controsl" style="width: fit-content" name="quantity" type="number" min="1" max="<?php print $StockItem['QuantityOnHand']; ?>" onchange="validateNum(this, <?php print $StockItem['QuantityOnHand']; ?>), this.form.submit()" value=<?php print $quantity; ?>></form></li>
                             <li class="list-inline-item align-middle"><form method="post"><button class="btn btn-link" style="text-decoration: none; color: inherit" type="submit" name="deleteProduct" value="<?php print $StockItem["StockItemID"] ?>"><i class='fa fa-solid fa-trash'></i></button></form></li>
                         </ul>
 
@@ -102,22 +100,24 @@ if (isset($_POST["deleteProduct"])) {
                     <!-- Kortingscodes -->
                     <p><form action="cart.php" method="post">
                         <label>Kortingscode:</label>
-                        <input class="trans form-control" type="text" name="couponCode">
+                        <input class="trans form-control" type="text" name="couponCode" placeholder="Kortingscode">
                         <input class="button2" type="submit" value="Kortingscode gebruiken">
                     </form></p>
-                    <?php if ($korting != 0) { ?>
-                        <p>Korting : <?php print sprintf("€ %.2f", $korting) ?></p>
+                    <?php if ($_SESSION["couponCode"] != 0) { ?>
+                        <p>Korting : <?php print sprintf("€ %.2f", $_SESSION["couponCode"]) ?></p>
                     <?php } ?>
                     <hr class="solid">
                     <p>Totaal : <?php
-                        if (($price - $korting) < 0){
+                        if (($price - $_SESSION["couponCode"]) < 0){
                             $price = 0;
                         }else{
-                            $price-=$korting;
+                            $price -= $_SESSION["couponCode"];
                         }
 
                         print sprintf("€ %.2f",$price); ?></p>
-                    <input class="button2" type="submit" value="Betalen">
+                    <a href="userdata.php">
+                        <input class="button2" type="submit" value="Betalen">
+                    </a>
                 </div>
             </div>
         </div>
