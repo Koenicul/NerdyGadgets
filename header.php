@@ -1,7 +1,9 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- de inhoud van dit bestand wordt bovenaan elke pagina geplaatst -->
 <?php
 session_start();
 include "database.php";
+
 $databaseConnection = connectToDatabase();
 
 function getVoorraadTekst($actueleVoorraad) {
@@ -28,6 +30,7 @@ function getVoorraadTekst($actueleVoorraad) {
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/typekit.css">
+    <link rel="stylesheet" href="Public/CSS/responsive.css">
 </head>
 <body>
 <div class="Background">
@@ -57,19 +60,43 @@ function getVoorraadTekst($actueleVoorraad) {
 
 
 
-<!-- code voor US3: zoeken-->
+<!-- code voor US3: zoeken en winkel wagen -->
         <ul id="ul-class-navigation">
             <li>
-                <a href="cart.php" class="HrefDecorations"><i class="fas fa-shopping-cart"></i> Winkelwagen</a>
+                <i class="fas fa-shopping-cart"></i>
+                <a href="cart.php" class="HrefDecoration">
+                     Winkelwagen</a>
             </li>
-<!-- einde code voor US3 zoeken -->
-<!-- begin winkelmandje laten zien -->
             <li>
-                <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Zoeken</a>
+                <i class="fas fa-search search"></i>
+                <a href="browse.php" class="HrefDecoration">
+                     Zoeken</a>
             </li>
+             <li>
+                <i class="fas fa-phone phone"></i>
+                <a href="support.php" class="HrefDecoration">
+                     Support</a>
+            </li>
+            <li>
+            <?php
+            if (isset($_SESSION['user_email'])) {
+                print('
+                        <li>
+                            <a onclick="logout()" href="logout.php" class="HrefDecoration"><i class="fas fa-sign-out-alt shopping-cart"></i> Uitloggen</a>
+                        </li>'
+                );
+            } else {
+                print('
+                        <li>
+                            <a href="login.php" class="HrefDecoration" <i class="fas fa-sign-in-alt shopping-cart"></i> Inloggen</a>
+                        </li>'
+                );
+            }
+            ?>
         </ul>
 
 
+<!-- einde code voor US3 zoeken -->
 
     </div>
     <div class="row" id="Content">
