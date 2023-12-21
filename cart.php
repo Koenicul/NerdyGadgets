@@ -43,6 +43,7 @@ if (isset($_POST["deleteProduct"])) {
                     'KORTING123' => 20,
                     'BERT123' => 10,
                     'ERNST123' => 10,
+                    'BERTENERNSTZIJNGEWELDIG' => 25,
                 ];
 
                 if (isset($_POST["couponCode"])) {
