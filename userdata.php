@@ -17,15 +17,14 @@ if (validateForm($_POST)) {
         $user["name"] = $_POST["name"];
         saveUser($user);
 
-        createUser($user, $databaseConnection);
-
         header("refresh:0.1;url=checkout.php");
     }
 }
 $user = getUser();
 
-
-$email = $_SESSION['user_email'];
+if (isset($_SESSION['user_email'])) {
+    $email = $_SESSION['user_email'];
+}
 
 $query = "
     SELECT CustomerName, DeliveryPostalCode, DeliveryAddressLine2
@@ -62,7 +61,7 @@ if (mysqli_stmt_fetch($statement)) {
             <div>
                 <div class="form-group">
                     <label>Naam*</label>
-                    <input class="form-control" type="text" name="name" required placeholder="Naam" value=" <?php if (isset($user["name"]) && $user["name"] != "") { print $user["name"]; } ?>">
+                    <input class="form-control" type="text" name="name" required placeholder="Naam" value="<?php if (isset($user["name"]) && $user["name"] != "") { print $user["name"]; } ?>">
                 </div>
 
                 <div class="form-group">

@@ -177,21 +177,20 @@ if (isset($_POST['reviewpost'])){
 </div>
 <?php
 $ingelogd = true;
-if (isset($_SESSION['user_email'])){
-?>
-<div id="ReviewContent">
-<div id="ReviewDiv">
-    <h3>Review plaatsen</h3>
-    <form method="post"">
-    <label>
-        Ik beveel dit product aan: <input type="checkbox" class="checkbox" id="aanbeveling" name="aanbeveling" value="1">
-    </label>
-    <textarea class="reviewtext" name="comment" required></textarea>
-        <input type="submit" class="reviewbutton" name="reviewpost">
-    </form>
-</div>
-</div>
-<?php }?>
+if (isset($_SESSION['user_email'])){ ?>
+    <div id="ReviewContent">
+        <div id="ReviewDiv">
+            <h3>Review plaatsen</h3>
+            <form method="post"">
+            <label>
+                Ik beveel dit product aan: <input type="checkbox" class="checkbox" id="aanbeveling" name="aanbeveling" value="1">
+            </label>
+            <textarea class="reviewtext" name="comment" required></textarea>
+                <input type="submit" class="reviewbutton" name="reviewpost">
+            </form>
+        </div>
+    </div>
+<?php } ?>
 
 <script>
     if ( window.history.replaceState ) {
