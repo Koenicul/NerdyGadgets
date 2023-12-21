@@ -168,3 +168,13 @@ function getCustomer($email, $databaseConnection) {
 
     return $R;
 }
+
+function postTicket($databaseConnection, $email, $topic, $description, $name) {
+
+    $Query = "INSERT INTO support_tickets (EmailSender, EmailAddress, EmailSubject, EmailBody)
+              VALUES (?, ?, ?, ?)";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, 'ssss', $name, $email, $topic, $description);
+    mysqli_stmt_execute($Statement);
+}
