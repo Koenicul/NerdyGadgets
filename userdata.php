@@ -23,8 +23,9 @@ if (validateForm($_POST)) {
     }
 }
 $user = getUser();
-$email = $_SESSION['user_email'];
-
+if (isset($_SESSION['user_email'])) {
+    $email = $_SESSION['user_email'];
+}
 if (isset($_POST['Email'])) {
     $_SESSION['email'] = $_POST['Email'];
     $_SESSION['postcoode'] = $_POST['postalcode'];
