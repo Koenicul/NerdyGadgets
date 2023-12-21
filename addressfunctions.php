@@ -1,8 +1,15 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 function GetAddress($postalcode, $houseNumber)
 {
-//    $api_key = $_ENV["TOKEN"];
-    $api_key = 'cc61a9f5-a7dc-47a8-80d0-11522c04786f';
+    $postalcode = str_replace(" ", "", $postalcode);
+    $api_key = $_ENV["TOKEN"];
     $url = "https://json.api-postcode.nl?postcode=". $postalcode ."&number=" . $houseNumber;
     $ch = curl_init($url);
     $headers = array(
