@@ -88,7 +88,7 @@ function getVoorraadTekst($actueleVoorraad) {
             } else {
                 print('
                         <li>
-                            <a href="login.php" class="HrefDecoration" <i class="fas fa-sign-in-alt shopping-cart"></i> Inloggen</a>
+                            <a href="login.php" class="HrefDecoration"><i class="fas fa-sign-in-alt shopping-cart"></i> Inloggen</a>
                         </li>'
                 );
             }
