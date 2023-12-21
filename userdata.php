@@ -12,7 +12,10 @@ if (validateForm($_POST)) {
     $user = GetAddress($_POST['postalcode'], $_POST["houseNumber"]);
     if ($user) {
         $user["name"] = $_POST["name"];
-        $user["email"] = $_POST["email"];
+        if (isset($_POST["email"])) {
+            $user["email"] = $_POST["email"];
+        }
+
         saveUser($user);
 
         header("refresh:0.1;url=checkout.php");
