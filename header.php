@@ -73,11 +73,7 @@ function getVoorraadTekst($actueleVoorraad) {
                 <a href="browse.php" class="HrefDecoration">
                      Zoeken</a>
             </li>
-             <li>
-                <i class="fas fa-phone phone"></i>
-                <a href="support.php" class="HrefDecoration">
-                     Support</a>
-            </li>
+
             <li>
             <?php
             if (isset($_SESSION['user_email'])) {
@@ -105,3 +101,15 @@ function getVoorraadTekst($actueleVoorraad) {
             <div id="SubContent">
 
 
+<?php
+                $current_page = basename($_SERVER['PHP_SELF']);
+                ?>
+
+                <?php if ($current_page !== 'support.php') { ?>
+                    <div id="mybutton">
+                        <button class="feedback" onclick="window.location.href='support.php'">
+                             Support
+                        </button>
+                    </div>
+
+                <?php } ?>
