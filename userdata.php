@@ -21,11 +21,9 @@ if (validateForm($_POST)) {
 
         header("refresh:0.1;url=checkout.php");
     }
-    if (isset($_POST['Email'])){
-        $_Session['Email'] = $_POST['Email'];
-    }
 }
 $user = getUser();
+$email = $_SESSION['user_email'];
 
 if (isset($_POST['Email'])) {
     $_SESSION['email'] = $_POST['Email'];
@@ -60,7 +58,6 @@ mysqli_stmt_fetch($statement);
 
 
 
-
 ?>
 
      <div class="achters">
@@ -74,7 +71,7 @@ mysqli_stmt_fetch($statement);
 
                 <div class="form-group">
                     <label>Postcode*</label>
-                    <input class="form-control" type="text" name="postalcode" required id="postalcode" placeholder="Postcode" value=<?php if (isset($user["postcode"]) && $user["postcode"] != "") { print $user["postcode"]; } ?>>
+                    <input class="form-control" type="text" name="postalcode" required id="postalcode" placeholder="Postcode" value=<?php if (isset($user["house_number"]) && $user["house_number"] != "") { print $user["house_number"]; } ?>>
                 </div>
                 <?php
                 if (!isset($_SESSION['user_email'])){
@@ -89,7 +86,7 @@ mysqli_stmt_fetch($statement);
                 ?>
                 <div class="form-group">
                     <label>Huisnummer*</label>
-                    <input class="form-control" type="text" name="houseNumber" required id="houseNumber" placeholder="Huisnummer" value=<?php if (isset($user["house_number"]) && $user["house_number"] != "") { print $user["house_number"]; } ?>>
+                    <input class="form-control" type="text" name="houseNumber" required id="houseNumber" placeholder="Huisnummer" value=<?php if (isset($user["postcode"]) && $user["postcode"] != "") { print $user["postcode"]; } ?>>
                 </div>
 
                 <div class="form-group">
