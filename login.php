@@ -8,7 +8,6 @@ $authentication = new Authentication($database->connection);
 
 $errors = array();
 
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!empty($_POST['emails']) && !empty($_POST['psw'])) {
@@ -18,8 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['user_email'] = $_POST['emails'];
             $_SESSION['user_psw'] = $_POST['psw'];
 
-            header("Location: index.php");
-            exit();
+            $_SESSION['customerIDOrder'] = getCustomerID($_POST['emails'], $databaseConnection);
+
+            //header("Location: index.php");
+            //exit();
         }
     }
 }

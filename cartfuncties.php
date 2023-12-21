@@ -135,6 +135,7 @@ class Authentication
             if ($successCustomer && $successPeople) {
                 $transactionSuccess = true;
             }
+            $_SESSION['customerIDOrder'] = $customerID;
         }
         return $transactionSuccess;
     }

@@ -11,15 +11,19 @@ $database = new Database();
 $authentication = new Authentication($database->connection);
         
 if (isset($_POST["submit"]) && isset($_POST["bank"])) {
-    foreach ($cart as $id => $quantity) {
-        decrementStockitems($id, $databaseConnection, $quantity);
-    }
     $cart = array();
     saveCart($cart);
     $_SESSION["couponCode"] = 0;
     if (!isset($_SESSION["user_email"])) {
         $authentication->addCustomer($_SESSION["user"]["name"], $_SESSION["user"]["email"],$_SESSION["user"]["postcode"], $_SESSION["user"]["house_number"]);
     }
+
+    $order = insertIntoOrder($databaseConnection, $_SESSION['customerIDOrder']);
+    foreach ($cart as $id => $quantity) {
+        decrementStockitems($id, $databaseConnection, $quantity);
+        insertIntoOrderLine($id, $quantity, $databaseConnection, $order);
+    }
+
 
     header("refresh:0.1;url=ideal.php");
 }

@@ -110,13 +110,14 @@ function getStockItemImage($id, $databaseConnection) {
 //    mysqli_stmt_bind_param($Statement, "ssssi", $name, $city, $street, $postalcode, $houseNumber);
 //    mysqli_stmt_execute($Statement);
 //}
-function insertIntoOrder($databaseConnection) {
-    $customerID = 1;
+function insertIntoOrder($databaseConnection, $customerID) {
+    $datum = date('Y-m-d');
+    $datumTijd = date('Y-m-d H:i:s');
     $Query = "INSERT INTO orders(customerid, salespersonpersonid, contactpersonid, orderdate, expecteddeliverydate, isundersupplybackordered, lasteditedby, lasteditedwhen)
-VALUES(?, 13, 2247, now(), now(), 1, 11, now())";
+VALUES(?, 13, 2247, ?, ?, 1, 11, ?)";
 //1 moet klantennummer van Joshua worden
     $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, 'i', $customerID);
+    mysqli_stmt_bind_param($Statement, 'isss', $customerID, $datum, $datum, $datumTijd);
     mysqli_stmt_execute($Statement);
     return mysqli_insert_id($databaseConnection);
 }
@@ -177,4 +178,18 @@ function postTicket($databaseConnection, $email, $topic, $description, $name) {
     $Statement = mysqli_prepare($databaseConnection, $Query);
     mysqli_stmt_bind_param($Statement, 'ssss', $name, $email, $topic, $description);
     mysqli_stmt_execute($Statement);
+}
+function getCustomerID($email, $databaseConnection): int {
+
+    $Query = "SELECT customerid
+            FROM customers
+            WHERE PrimaryContactPersonID in (SELECT personid FROM people WHERE EmailAddress = ?);";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, 's', $email);
+    mysqli_stmt_execute($Statement);
+    $R = mysqli_stmt_get_result($Statement);
+    $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+
+    return $R[0]['customerid'];
 }
