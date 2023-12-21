@@ -2,19 +2,16 @@
 
 include __DIR__ . "/header.php";
 
-$send = FALSE;
-if (isset($_POST['emailName'])) {
-    $name = $_POST['emailName'];
-    $email = $_POST['emailFrom'];
-    $topic = $_POST['emailTopic'];
-    $description = $_POST['emailDescription'];
-}
+$name = $_POST['emailName'];
+$email = $_POST['emailFrom'];
+$topic = $_POST['emailTopic'];
+$description = $_POST['emailDescription'];
 
+$email_to = 'joshuadh@live.nl';
+$email_subject = ("New Support Ticket: ".$topic);
+$email_body = ("A new support ticket has been filled out by ".$name."\n. Here is the message:\n ".$description);
 
-if (isset($_POST['emailName']) &&  $_POST['emailFrom'] && $_POST['emailTopic'] && $_POST['emailDescription']) {
-    $send = TRUE;
-    postTicket($databaseConnection, $email, $topic, $description, $name);
-}
+$email_headers = "From: ".$email."\r\n";
 
 //mail($email_to, $email_subject, $email_body, $email_headers);
 
@@ -32,11 +29,7 @@ if (isset($_POST['emailName']) &&  $_POST['emailFrom'] && $_POST['emailTopic'] &
 <div class="center">
     <p>Bedankt voor uw vraag. We gaan ermee bezig!</p>
     <?php
-    if ($send) {
-        echo("Het antwoord op uw vraag zal zo snel mogelijk behandeld worden. Het antwoord zal gestuurd worden naar $email.");
-    }else{
-        echo("Er is geen vraag gevonden.");
-    }
+    echo ("Verzonden van: $email | Verzonden naar: $email_to | Onderwerp: $email_subject | Mail: $email_body | ");
     ?>
 </div>
 

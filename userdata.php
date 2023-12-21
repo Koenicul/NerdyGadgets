@@ -15,15 +15,21 @@ if (validateForm($_POST)) {
     $user = GetAddress($postalcode, $_POST["houseNumber"]);
     if ($user) {
         $user["name"] = $_POST["name"];
+        $_Session["user"] = $_POST["name"];
         saveUser($user);
+        //createUser($user, $databaseConnection);
 
         header("refresh:0.1;url=checkout.php");
+    }
+    if (isset($_POST['Email'])){
+        $_Session['Email'] = $_POST['Email'];
     }
 }
 $user = getUser();
 
-if (isset($_SESSION['user_email'])) {
-    $email = $_SESSION['user_email'];
+if (isset($_POST['Email'])) {
+    $_SESSION['email'] = $_POST['Email'];
+    $_SESSION['postcoode'] = $_POST['postalcode'];
 }
 
 $query = "
@@ -32,6 +38,7 @@ $query = "
     JOIN people ON customers.PrimaryContactPersonID = people.PersonID
     WHERE people.EmailAddress = ?";
 
+$databaseConnection = connectToDatabase();
 $statement = mysqli_prepare($databaseConnection, $query);
 
 // Binden van parameters
@@ -44,13 +51,14 @@ mysqli_stmt_execute($statement);
 mysqli_stmt_bind_result($statement, $customerName, $deliveryPostalCode, $deliveryAddressLine2);
 
 // Fetchen van resultaten
-if (mysqli_stmt_fetch($statement)) {
+
+mysqli_stmt_fetch($statement);
     // Afdrukken van de resultaten
     $user["name"] = $customerName;
     $user["postcode"] = $deliveryPostalCode;
     $user["house_number"] = $deliveryAddressLine2;
 
-}
+
 
 
 ?>
@@ -68,7 +76,17 @@ if (mysqli_stmt_fetch($statement)) {
                     <label>Postcode*</label>
                     <input class="form-control" type="text" name="postalcode" required id="postalcode" placeholder="Postcode" value=<?php if (isset($user["postcode"]) && $user["postcode"] != "") { print $user["postcode"]; } ?>>
                 </div>
+                <?php
+                if (!isset($_SESSION['user_email'])){
+                ?>
+                <div class="form-group">
+                    <label>Email*</label>
+                    <input class="form-control" type="text" name="Email" required id="houseNumber" placeholder="Email">
+                </div>
 
+                <?php
+                }
+                ?>
                 <div class="form-group">
                     <label>Huisnummer*</label>
                     <input class="form-control" type="text" name="houseNumber" required id="houseNumber" placeholder="Huisnummer" value=<?php if (isset($user["house_number"]) && $user["house_number"] != "") { print $user["house_number"]; } ?>>

@@ -1,0 +1,35 @@
+body {
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+#CenteredContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.achter{
+    border:  solid 1px white;
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 2%;
+}
+
+.joshua {
+    color: #333;
+    text-align: center;
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: white;
+}
+

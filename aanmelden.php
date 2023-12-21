@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         array_push($errors, "Ingevulde (nieuwe) wachtwoorden komen niet overeen");
     }
     if (count($errors) == 0) {
-        $user = $authentication->getUser($_POST['emails'], $_POST['username']);
+        $user = $authentication->getUser($_POST['emails']);
         if (!$user) {
             $insertGelukt = $authentication->addUser($_POST['username'], $_POST['emails'], $_POST['password_new'], $_POST['postalcode'], $_POST['houseNumber'] );
             if ($insertGelukt) {
@@ -90,3 +90,7 @@ if (count($errors) > 0) {
 ?>
 </body>
 </html>
+<?php
+//
+include __DIR__ . "/footer.php";
+?>

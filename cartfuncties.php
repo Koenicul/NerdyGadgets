@@ -112,18 +112,17 @@ class Authentication
         $databaseConnection = connectToDatabase();
         $peopleID = $databaseConnection->query("SELECT MAX(PersonID) AS max from people")->fetch_assoc()['max'] + 1;
         $customerID = $databaseConnection->query("SELECT MAX(CustomerID) AS max from customers")->fetch_assoc()['max'] + 1;
-
         $datum = date('Y-m-d H:i:s');
 
 
-        $sql = 'INSERT INTO people (`PersonID`, `FullName`, `PreferredName`, `SearchName`, `IsPermittedToLogon`, `LogonName`, `IsExternalLogonProvider`, `IsSystemUser`, `IsEmployee`, `IsSalesperson`, `UserPreferences`, `PhoneNumber`, `FaxNumber`, `EmailAddress`, `HashedPassword`, `CustomFields`, `OtherLanguages`, `LastEditedBy`, `ValidFrom`, `ValidTo`)
+        $sql = 'INSERT INTO people (PersonID, FullName, PreferredName, SearchName, IsPermittedToLogon, LogonName, IsExternalLogonProvider, IsSystemUser, IsEmployee, IsSalesperson, UserPreferences, PhoneNumber, FaxNumber, EmailAddress, HashedPassword, CustomFields, OtherLanguages, LastEditedBy, ValidFrom, ValidTo)
     VALUES (?, ?, ?, ?, 0, "NO LOGON", 0, 0, 0, 0, "-", "(229) 555-0100", "(229) 555-0101", ?, ?, "", "", 1, ?, "9999-12-12 23:59:59" )';
         $query = $this->database->prepare($sql);
         $query->bind_param('issssss', $peopleID, $username, $username, $username, $emails, $password, $datum);
         $successPeople = $query->execute();
 
 
-        $sql = 'INSERT INTO `customers` (`CustomerID`, `CustomerName`, `BillToCustomerID`, `CustomerCategoryID`, `PrimaryContactPersonID`, `DeliveryMethodID`, `DeliveryCityID`, `PostalCityID`, `AccountOpenedDate`, `StandardDiscountPercentage`, `IsStatementSent`, `IsOnCreditHold`, `PaymentDays`, `PhoneNumber`, `FaxNumber`, `WebsiteURL`, `DeliveryAddressLine1`, `DeliveryAddressLine2`, `DeliveryPostalCode`,`PostalAddressLine1`, `PostalPostalCode`, `LastEditedBy`, `ValidFrom`, `ValidTo`) 
+        $sql = 'INSERT INTO customers (CustomerID, CustomerName, BillToCustomerID, CustomerCategoryID, PrimaryContactPersonID, DeliveryMethodID, DeliveryCityID, PostalCityID, AccountOpenedDate, StandardDiscountPercentage, IsStatementSent, IsOnCreditHold, PaymentDays, PhoneNumber, FaxNumber, WebsiteURL, DeliveryAddressLine1, DeliveryAddressLine2, DeliveryPostalCode,PostalAddressLine1, PostalPostalCode, LastEditedBy, ValidFrom, ValidTo) 
     VALUES (?, ?, ?, 1, ?, 3, 1, 1, NOW(), "-", "-", "-", "-", "-", "-", ?, "-", ?, ?,"-", "-",?, ?, "9999-12-12 23:59:59")';
         $query = $this->database->prepare($sql);
         $query->bind_param('issssssss', $customerID, $username, $customerID, $peopleID, $address['street'], $Postalcode, $houseNumber, $peopleID, $datum);
@@ -131,6 +130,33 @@ class Authentication
 
         return $successPeople && $successCustomer;
     }
+
+    public function addUserNoLogin(string $username, string $emails, string $password_new, $Postalcode, $houseNumber): bool
+    {
+        $address = GetAddress($Postalcode, $houseNumber);
+        $databaseConnection = connectToDatabase();
+        $peopleID = $databaseConnection->query("SELECT MAX(PersonID) AS max from people")->fetch_assoc()['max'] + 1;
+        $customerID = $databaseConnection->query("SELECT MAX(CustomerID) AS max from customers")->fetch_assoc()['max'] + 1;
+
+
+
+        $sql = 'INSERT INTO people (`PersonID`, `FullName`, `PreferredName`, `SearchName`, `IsPermittedToLogon`, `LogonName`, `IsExternalLogonProvider`, `IsSystemUser`, `IsEmployee`, `IsSalesperson`, `UserPreferences`, `PhoneNumber`, `FaxNumber`, `EmailAddress`, `HashedPassword`, `CustomFields`, `OtherLanguages`, `LastEditedBy`, `ValidFrom`, `ValidTo`)
+    VALUES (?, ?, ?, ?, 0, "NO LOGON", 0, 0, 0, 0, "-", "(229) 555-0100", "(229) 555-0101", ?, ?, "", "", 1,"9999-12-12" , "9999-12-12 23:59:59" )';
+        $query = $this->database->prepare($sql);
+        $query->bind_param('isssss', $peopleID, $username, $username, $username, $emails, $password);
+        $successPeople = $query->execute();
+
+
+        $sql = 'INSERT INTO `customers` (`CustomerID`, `CustomerName`, `BillToCustomerID`, `CustomerCategoryID`, `PrimaryContactPersonID`, `DeliveryMethodID`, `DeliveryCityID`, `PostalCityID`, `AccountOpenedDate`, `StandardDiscountPercentage`, `IsStatementSent`, `IsOnCreditHold`, `PaymentDays`, `PhoneNumber`, `FaxNumber`, `WebsiteURL`, `DeliveryAddressLine1`, `DeliveryAddressLine2`, `DeliveryPostalCode`,`PostalAddressLine1`, `PostalPostalCode`, `LastEditedBy`, `ValidFrom`, `ValidTo`) 
+VALUES (?, ?, ?, 1, ?, 3, 1, 1, NOW(), "-", "-", "-", "-", "-", "-", ?, "-", ?, ?, "-", "-",1,"2023-12-12", "9999-12-12 23:59:59")';
+        $query = $this->database->prepare($sql);
+        $query->bind_param('isissis', $customerID, $username, $customerID, $peopleID, $address['street'], $Postalcode, $houseNumber);
+        $successCustomer = $query->execute();
+
+
+        return $successPeople && $successCustomer;
+    }
+
 
     public function login(string $email, string $psw): ?array
     {
