@@ -16,13 +16,13 @@ include __DIR__ . "/header.php";
     <div class="center col-4">
         <form method="post" name="emailform" action="supportsubmit.php">
             <label for="emailName">Vul uw naam in:</label><br>
-            <input type="text" id="emailName" name="emailName"><br>
+            <input type="text" id="emailName" name="emailName" required><br>
             <label for="emailFrom">Vul uw mailadres in:</label><br>
-            <input type="text" id="emailFrom" name="emailFrom"><br>
+            <input type="text" id="emailFrom" name="emailFrom" required><br>
             <label for="emailTopic">Onderwerp Probleem:</label><br>
-            <input type="text" id="emailTopic" name="emailTopic"><br>
+            <input type="text" id="emailTopic" name="emailTopic" required><br>
             <label for="emailDescription">Leg uw probleem uit:</label><br>
-            <textarea id="emailDescription" name="emailDescription" rows="4" cols="30"></textarea><br>
+            <textarea id="emailDescription" name="emailDescription" rows="4" cols="30" required></textarea><br>
             <input type="submit" value="Versturen">
         </form>
     </div>
