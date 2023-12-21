@@ -3,29 +3,16 @@
 include __DIR__ . "/header.php";
 
 ?>
-<html>
-<head>
-    <title>Support</title>
-<link rel="stylesheet" href="Public/CSS/style.css">
-
-</head>
-<body>
-
-<h2>Support</h2>
-<div id="CenteredContent">
-    <div class="center col-4">
+<link rel="stylesheet" type="text/css" href="help.css">
+<div class="trans">
         <form method="post" name="emailform" action="supportsubmit.php">
-            <label for="emailName">Vul uw naam in:</label><br>
-            <input type="text" id="emailName" name="emailName" required><br>
-            <label for="emailFrom">Vul uw mailadres in:</label><br>
-            <input type="text" id="emailFrom" name="emailFrom" required><br>
-            <label for="emailTopic">Onderwerp Probleem:</label><br>
-            <input type="text" id="emailTopic" name="emailTopic" required><br>
-            <label for="emailDescription">Leg uw probleem uit:</label><br>
-            <textarea id="emailDescription" name="emailDescription" rows="4" cols="30" required></textarea><br>
-            <input type="submit" value="Versturen">
+            <label for="chk" aria-hidden="true">Support</label>
+            <input class="login1" type="text" placeholder="Naam" id="emailName" name="emailName" required>
+            <input class="login1" type="text" placeholder="Email" id="emailFrom" name="emailFrom" required>
+            <input class="login1" type="text" placeholder="Onderwerp" id="emailTopic" name="emailTopic" required>
+            <textarea class="login1 center" style="margin: auto; resize= none;" id="emailDescription" placeholder="Beschrijf het probleem" name="emailDescription" rows="4" cols="35" required></textarea>
+            <br>
+            <input class="button3" type="submit" value="Versturen">
         </form>
-    </div>
 </div>
-</body>
-</html>
+

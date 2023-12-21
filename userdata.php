@@ -9,12 +9,10 @@ $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 if (validateForm($_POST)) {
-    $postalcode = $_POST['postalcode'];
-    $postalcode = str_replace(" ", "", $postalcode);
-
-    $user = GetAddress($postalcode, $_POST["houseNumber"]);
+    $user = GetAddress($_POST['postalcode'], $_POST["houseNumber"]);
     if ($user) {
         $user["name"] = $_POST["name"];
+        $user["email"] = $_POST["email"];
         saveUser($user);
 
         header("refresh:0.1;url=checkout.php");
@@ -47,8 +45,8 @@ mysqli_stmt_bind_result($statement, $customerName, $deliveryPostalCode, $deliver
 if (mysqli_stmt_fetch($statement)) {
     // Afdrukken van de resultaten
     $user["name"] = $customerName;
-    $user["postcode"] = $deliveryPostalCode;
-    $user["house_number"] = $deliveryAddressLine2;
+    $user["postcode"] = $deliveryAddressLine2;
+    $user["house_number"] = $deliveryPostalCode;
 
 }
 
@@ -63,6 +61,12 @@ if (mysqli_stmt_fetch($statement)) {
                     <label>Naam*</label>
                     <input class="form-control" type="text" name="name" required placeholder="Naam" value="<?php if (isset($user["name"]) && $user["name"] != "") { print $user["name"]; } ?>">
                 </div>
+                <?php if (!isset($_SESSION['user_email'])) { ?>
+                <div class="form-group">
+                    <label>Email*</label>
+                    <input class="form-control" type="text" name="email" required placeholder="Naam" value="<?php if (isset($user["email"]) && $user["email"] != "") { print $user["email"]; } ?>">
+                </div>
+                <?php } ?>
 
                 <div class="form-group">
                     <label>Postcode*</label>

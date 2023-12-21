@@ -5,14 +5,21 @@ $user = getUser();
 $cart = getCart();
 $price = getPrice($cart);
 $verzendkosten = 2;
+
+$database = new Database();
+
+$authentication = new Authentication($database->connection);
         
 if (isset($_POST["submit"]) && isset($_POST["bank"])) {
     foreach ($cart as $id => $quantity) {
-            decrementStockitems($id, $databaseConnection, $quantity);
+        decrementStockitems($id, $databaseConnection, $quantity);
     }
     $cart = array();
     saveCart($cart);
     $_SESSION["couponCode"] = 0;
+    if (!isset($_SESSION["user_email"])) {
+        $authentication->addCustomer($_SESSION["user"]["name"], $_SESSION["user"]["email"],$_SESSION["user"]["postcode"], $_SESSION["user"]["house_number"]);
+    }
 
     header("refresh:0.1;url=ideal.php");
 }
@@ -28,13 +35,13 @@ if (isset($_POST["submit"]) && isset($_POST["bank"])) {
             <a href="userdata.php">
                 <input class="button2" type="button" value="Gegevens Aanpassen">
             </a>
-            <p class="pt-2">Artikelen (<?php print amountOfItems($cart); ?>) : <?php print sprintf("€ %.2f",$price) ?></p>
+            <p class="pt-2">Artikelen (<?php print amountOfItems($cart); ?>) : <?php print sprintf("€ %.2f",$_SESSION["discountedPrice"]) ?></p>
 
             <p>Verzendkosten: <?php print sprintf("€ %.2f",$verzendkosten) ?></p>
 
             <hr class="solid">
 
-            <p>Totaal : <?php print sprintf("€ %.2f",$price + $verzendkosten); ?></p>
+            <p>Totaal : <?php print sprintf("€ %.2f",$_SESSION["discountedPrice"] + $verzendkosten); ?></p>
             <div class="form-group">
                 <select required name="bank" class="form-control">
                     <option value="" selected disabled>Selecteer je bank</option>
@@ -55,4 +62,6 @@ if (isset($_POST["submit"]) && isset($_POST["bank"])) {
     </div>
 </form>
 
-<?php include __DIR__ . "/footer.php"; ?>
+<?php
+
+include __DIR__ . "/footer.php"; ?>

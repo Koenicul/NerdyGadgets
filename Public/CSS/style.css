@@ -756,3 +756,9 @@ button{
     right: 10px;
     z-index: 999;
 }
+
+textarea {
+    display: block;
+    margin: auto;
+    resize: none !important;
+}

@@ -31,6 +31,7 @@ function getVoorraadTekst($actueleVoorraad) {
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/typekit.css">
     <link rel="stylesheet" href="Public/CSS/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="Background">

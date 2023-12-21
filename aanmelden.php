@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         array_push($errors, "Ingevulde (nieuwe) wachtwoorden komen niet overeen");
     }
     if (count($errors) == 0) {
-        $user = $authentication->getUser($_POST['emails'], $_POST['username']);
+        $user = $authentication->getUser($_POST['emails']);
         if (!$user) {
             $insertGelukt = $authentication->addUser($_POST['username'], $_POST['emails'], $_POST['password_new'], $_POST['postalcode'], $_POST['houseNumber'] );
             if ($insertGelukt) {
@@ -52,15 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 }
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Slide Navbar</title>
-    <link rel="stylesheet" type="text/css" href="help.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
-</head>
-<body>
+<link rel="stylesheet" type="text/css" href="help.css">
 <div class="trans">
     <input type="checkbox" id="chk" aria-hidden="true">
 
@@ -88,5 +80,3 @@ if (count($errors) > 0) {
     echo '</ul>';
 }
 ?>
-</body>
-</html>
