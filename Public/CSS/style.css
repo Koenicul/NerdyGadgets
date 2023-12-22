@@ -763,3 +763,32 @@ button{
 .sander3{
     font-size: 46px !important;
 }
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    background-color: #2e2e79;
+    border: 2px solid black;
+    position: absolute;
+    min-width: 160px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    text-decoration: none;
+    display: block;
+    padding: 12px 16px;
+}
+
+.dropdown-content a:hover {background-color: #676eff;}
+
+.show {display:block;}
+
+textarea {
+    display: block;
+}

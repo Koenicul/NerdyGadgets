@@ -25,7 +25,7 @@ if (isset($_POST["submit"]) && isset($_POST["bank"])) {
     }
 
 
-    header("refresh:0.1;url=ideal.php");
+    print '<meta http-equiv="refresh" content="0; url=ideal.php">';
 }
 ?>
 

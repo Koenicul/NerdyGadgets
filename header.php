@@ -79,7 +79,13 @@ function getVoorraadTekst($actueleVoorraad) {
             if (isset($_SESSION['user_email'])) {
                 print('
                         <li>
-                            <a onclick="logout()" href="logout.php" class="HrefDecoration"><i class="fas fa-sign-out-alt shopping-cart"></i> Uitloggen</a>
+                            <div class="dropdown">
+                                <a onclick="dropDownFunc()" class="dropbtn HrefDecoration"><i class="fas fa-solid fa-user"></i></i> Account</a>
+                                <div id="myDropdown" class="dropdown-content">
+                                    <a href="account.php" class="HrefDecoration">Gegevens</a>
+                                    <a onclick="logout()" href="logout.php" class="HrefDecoration">Uitloggen</a>
+                                </div>
+                            </div>
                         </li>'
                 );
             } else {
@@ -90,11 +96,28 @@ function getVoorraadTekst($actueleVoorraad) {
                 );
             }
             ?>
-        </ul>
-
+        </ul>                
 
 <!-- einde code voor US3 zoeken -->
+        <script>
+            function dropDownFunc() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
 
+            // Close the dropdown menu if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+        </script>
     </div>
     <div class="row" id="Content">
         <div class="col-12">

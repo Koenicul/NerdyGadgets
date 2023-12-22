@@ -14,6 +14,39 @@ if (isset($_POST['reviewpost'])){
     }
     postReview($StockItem["StockItemID"], $databaseConnection, $_POST['comment'], $aanbeveling, $_SESSION["user_email"]);
 }
+
+if (isset($_POST['addToCart'])) {
+    addProductToCart($StockItem['StockItemID']);
+    print("
+        <div class='modal fade' id='myModal' role='dialog'>
+        <div class='modal-dialog'>
+            <!-- Modal content-->
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h4 class='modal-title'>Het artikel is toegevoegd aan het winkelmandje</h4>
+                    <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                </div>
+                <div class='modal-body'>
+                    <p>". $StockItem['StockItemName'] . "</p>
+                </div>
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-defaul' style='color: white' data-dismiss='modal'>Verder winkelen</button>
+                    <button class='button1' onclick='window.location.href=\"cart.php\"'>Naar winkelwagen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script type='text/javascript'>
+            $(window).on('load',function(){
+                $('#myModal').modal('show');
+            });
+        </script>
+    ");
+    ?>
+
+    
+<?php } 
 ?>
 
 <div id="CenteredContent">
@@ -154,27 +187,6 @@ if (isset($_POST['reviewpost'])){
     } ?>
 </div>
 
-<div class="container">
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Het artikel is toegevoegd aan het winkelmandje</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p><?php print $StockItem['StockItemName'] ?></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" style="color: white" data-dismiss="modal">Verder winkelen</button>
-                    <button class="button1" onclick="window.location.href='cart.php'">Naar winkelwagen</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <?php
 $ingelogd = true;
 if (isset($_SESSION['user_email'])){ ?>
@@ -198,17 +210,6 @@ if (isset($_SESSION['user_email'])){ ?>
     }
 </script>
 
-<?php
-if (isset($_POST['addToCart'])) {
-    addProductToCart($StockItem['StockItemID']);
-    ?>
-    <script type="text/javascript">
-        $(window).on('load',function(){
-            $('#myModal').modal('show');
-        });
-    </script>
-<?php }
-?>
 <div id="CenteredContent">
 <?php
 $reviews = getReview($StockItem["StockItemID"], $databaseConnection);

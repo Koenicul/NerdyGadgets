@@ -1,5 +1,5 @@
 <?php
 include __DIR__ . "/header.php";
 unset($_SESSION["user_email"]);
-header("Location: index.php");
+print '<meta http-equiv="refresh" content="0; url=index.php">';
 ?>

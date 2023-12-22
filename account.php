@@ -8,6 +8,10 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
+if (isset($_SESSION['user_email'])) {
+    $email = $_SESSION['user_email'];
+}
+
 if (validateForm($_POST)) {
     $user = GetAddress($_POST['postalcode'], $_POST["houseNumber"]);
     if ($user) {
@@ -18,14 +22,32 @@ if (validateForm($_POST)) {
 
         saveUser($user);
 
-        print '<meta http-equiv="refresh" content="0; url=checkout.php">';
+        $query = "
+            UPDATE people
+            SET FullName = ?, PreferredName = ?, SearchName = ?
+            WHERE people.EmailAddress = ?
+        ";
+
+
+        $statement = mysqli_prepare($databaseConnection, $query);
+        mysqli_stmt_bind_param($statement, "ssss", $user["name"], $user["name"], $user["name"], $email);
+        mysqli_stmt_execute($statement);
+
+        $query = "
+            UPDATE customers
+            SET CustomerName = ?, WebsiteURL = ?, DeliveryAddressLine2 = ?, DeliveryPostalCode = ?
+            WHERE PrimaryContactPersonID IN (
+                SELECT PersonID
+                FROM people
+                WHERE EmailAddress = ?
+            )
+        ";
+        $statement = mysqli_prepare($databaseConnection, $query);
+        mysqli_stmt_bind_param($statement, "sssss", $user["name"], $user["street"], $user["postcode"], $user["house_number"], $email);
+        mysqli_stmt_execute($statement);
     }
 }
 $user = getUser();
-
-if (isset($_SESSION['user_email'])) {
-    $email = $_SESSION['user_email'];
-}
 
 $query = "
     SELECT CustomerName, DeliveryPostalCode, DeliveryAddressLine2
@@ -73,7 +95,7 @@ if (mysqli_stmt_fetch($statement)) {
 
                 <div class="form-group">
                     <label>Postcode*</label>
-                    <input class="form-control" type="text" name="postalcode" required id="postalcode" placeholder="Postcode" value="<?php if (isset($user["postcode"]) && $user["postcode"] != "") { print $user["postcode"]; } ?>"">
+                    <input class="form-control" type="text" name="postalcode" required id="postalcode" placeholder="Postcode" value="<?php if (isset($user["postcode"]) && $user["postcode"] != "") { print $user["postcode"]; } ?>">
                 </div>
 
                 <div class="form-group">
@@ -82,7 +104,7 @@ if (mysqli_stmt_fetch($statement)) {
                 </div>
 
                 <div class="form-group">
-                    <input class="button2" type="submit" name="submit" value="Naar Betalen">
+                    <input class="button2" type="submit" name="submit" value="Gegevens Aanpassen">
                 </div>
             </div>
         </form>
