@@ -3,15 +3,15 @@
 include __DIR__ . "/header.php";
 
 $send = FALSE;
-if (isset($_POST['emailName'])) {
-    $name = $_POST['emailName'];
-    $email = $_POST['emailFrom'];
-    $topic = $_POST['emailTopic'];
+if (isset($_POST['Name'])) {
+    $name = $_POST['Name'];
+    $email = $_POST['Email'];
+    $topic = $_POST['Topic'];
     $description = $_POST['emailDescription'];
 }
 
 
-if (isset($_POST['emailName']) &&  $_POST['emailFrom'] && $_POST['emailTopic'] && $_POST['emailDescription']) {
+if (isset($_POST['Name']) &&  $_POST['Email'] && $_POST['Topic'] && $_POST['emailDescription']) {
     $send = TRUE;
     postTicket($databaseConnection, $email, $topic, $description, $name);
 }
