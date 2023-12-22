@@ -80,7 +80,7 @@ function getVoorraadTekst($actueleVoorraad) {
                 print('
                         <li>
                             <div class="dropdown">
-                                <a onclick="dropDownFunc()" class="dropbtn HrefDecoration"><i class="fas fa-solid fa-user"></i></i> Account</a>
+                                <a href="javascript:dropDownFunc()" class="dropbtn HrefDecoration"><i class="fas fa-solid fa-user"></i></i> Account</a>
                                 <div id="myDropdown" class="dropdown-content">
                                     <a href="account.php" class="HrefDecoration">Gegevens</a>
                                     <a onclick="logout()" href="logout.php" class="HrefDecoration">Uitloggen</a>
