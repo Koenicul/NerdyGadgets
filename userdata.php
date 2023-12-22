@@ -27,33 +27,6 @@ if (isset($_SESSION['user_email'])) {
     $email = $_SESSION['user_email'];
 }
 
-$query = "
-    SELECT CustomerName, DeliveryPostalCode, DeliveryAddressLine2
-    FROM customers
-    JOIN people ON customers.PrimaryContactPersonID = people.PersonID
-    WHERE people.EmailAddress = ?";
-
-$statement = mysqli_prepare($databaseConnection, $query);
-
-// Binden van parameters
-mysqli_stmt_bind_param($statement, "s", $email);
-
-// Uitvoeren van de query
-mysqli_stmt_execute($statement);
-
-// Resultaten ophalen
-mysqli_stmt_bind_result($statement, $customerName, $deliveryPostalCode, $deliveryAddressLine2);
-
-// Fetchen van resultaten
-if (mysqli_stmt_fetch($statement)) {
-    // Afdrukken van de resultaten
-    $user["name"] = $customerName;
-    $user["postcode"] = $deliveryAddressLine2;
-    $user["house_number"] = $deliveryPostalCode;
-
-}
-
-
 ?>
 
      <div class="achters">
@@ -67,7 +40,7 @@ if (mysqli_stmt_fetch($statement)) {
                 <?php if (!isset($_SESSION['user_email'])) { ?>
                 <div class="form-group">
                     <label>Email*</label>
-                    <input class="form-control" type="text" name="email" required placeholder="Naam" value="<?php if (isset($user["email"]) && $user["email"] != "") { print $user["email"]; } ?>">
+                    <input class="form-control" type="text" name="email" required placeholder="Email" value="<?php if (isset($user["email"]) && $user["email"] != "") { print $user["email"]; } ?>">
                 </div>
                 <?php } ?>
 
