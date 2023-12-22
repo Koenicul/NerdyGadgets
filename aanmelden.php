@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!$user) {
             $insertGelukt = $authentication->addUser($_POST['username'], $_POST['emails'], $_POST['password_new'], $_POST['postalcode'], $_POST['houseNumber'] );
             if ($insertGelukt) {
-                header("Location: login.php");
+                print '<meta http-equiv="refresh" content="0; url=login.php">';
                 exit;
             } else {
                 array_push($errors, "Niet gelukt probeer het later opnieuw");
