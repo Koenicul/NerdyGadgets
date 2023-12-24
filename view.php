@@ -198,7 +198,7 @@ if (isset($_SESSION['user_email'])){ ?>
             <input type="checkbox" class="checkbox" id="aanbeveling" name="aanbeveling" value="1">
             
             <textarea class="reviewtext" name="comment" placeholder="Leg uw mening uit..." required></textarea>
-            <input type="submit" class="reviewbutton" name="reviewpost">
+            <input type="submit" class="reviewbutton" name="reviewpost" value="Plaatsen">
             </form>
         </div>
     </div>
