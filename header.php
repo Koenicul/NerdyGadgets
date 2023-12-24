@@ -1,7 +1,9 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- de inhoud van dit bestand wordt bovenaan elke pagina geplaatst -->
 <?php
 session_start();
 include "database.php";
+
 $databaseConnection = connectToDatabase();
 
 function getVoorraadTekst($actueleVoorraad) {
@@ -28,6 +30,8 @@ function getVoorraadTekst($actueleVoorraad) {
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/typekit.css">
+    <link rel="stylesheet" href="Public/CSS/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="Background">
@@ -57,23 +61,78 @@ function getVoorraadTekst($actueleVoorraad) {
 
 
 
-<!-- code voor US3: zoeken-->
+<!-- code voor US3: zoeken en winkel wagen -->
         <ul id="ul-class-navigation">
             <li>
-                <a href="cart.php" class="HrefDecorations"><i class="fas fa-shopping-cart"></i> Winkelwagen</a>
+                <i class="fas fa-shopping-cart"></i>
+                <a href="cart.php" class="HrefDecoration">
+                     Winkelwagen</a>
             </li>
-<!-- einde code voor US3 zoeken -->
-<!-- begin winkelmandje laten zien -->
             <li>
-                <a href="browse.php" class="HrefDecoration"><i class="fas fa-search search"></i> Zoeken</a>
+                <i class="fas fa-search search"></i>
+                <a href="browse.php" class="HrefDecoration">
+                     Zoeken</a>
             </li>
-        </ul>
 
+            <li>
+            <?php
+            if (isset($_SESSION['user_email'])) {
+                print('
+                    <li>
+                        <div class="dropdown">
+                            <a href="javascript:dropDownFunc()" class="dropbtn HrefDecoration" style="line-height: normal;"><i class="fas fa-solid fa-user"></i> Account</a>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="account.php" style="line-height: normal; class="HrefDecoration">Gegevens</a>
+                                <a href="logout.php" onclick="logout()" style="line-height: normal;"  class="HrefDecoration">Uitloggen</a>
+                            </div>
+                        </div>
+                    </li>'
+                );
+            } else {
+                print('
+                        <li>
+                            <a href="login.php" class="HrefDecoration"><i class="fas fa-sign-in-alt shopping-cart"></i> Inloggen</a>
+                        </li>'
+                );
+            }
+            ?>
+        </ul>                
 
+<!-- einde code voor US3 zoeken -->
+        <script>
+            function dropDownFunc() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
 
+            // Close the dropdown menu if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+        </script>
     </div>
     <div class="row" id="Content">
         <div class="col-12">
             <div id="SubContent">
 
 
+<?php
+                $current_page = basename($_SERVER['PHP_SELF']);
+                ?>
+
+                <?php if ($current_page !== 'support.php') { ?>
+                    <div id="mybutton">
+                        <button class="feedback" onclick="window.location.href='support.php'">
+                             Support
+                        </button>
+                    </div>
+
+                <?php } ?>

@@ -1,0 +1,100 @@
+body{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+}
+.trans{
+    width: 500px;
+    height: 500px;
+    background: red;
+    margin: auto;
+    overflow: hidden;
+    background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
+    border-radius: 10px;
+    box-shadow: 5px 20px 50px #000;
+    border:  solid 1px white;
+    padding: 15px;
+    margin-top: 2%;
+}
+.trans1{
+    width: 500px;
+    height: 370px;
+    background: red;
+    margin: auto;
+    overflow: hidden;
+    background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
+    border-radius: 10px;
+    box-shadow: 5px 20px 50px #000;
+    border:  solid 1px white;
+    padding: 15px;
+    margin-top: 2%;
+}
+#chk{
+    display: none;
+}
+
+label{
+    color: #fff;
+    font-size: 2.3em;
+    justify-content: center;
+    display: flex;
+    margin: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .5s ease-in-out;
+}
+input{
+    color: white;
+    width: 300px;
+    height: 20px;
+    background: transparent;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    margin: 20px auto;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid white;
+    outline: none;
+
+}
+.button3{
+    color: #ffffff;
+    border: 2px solid #676EFFFF;
+    padding: 0.6em 1.5em;
+    background-color: transparent;
+    border-radius: .3em;
+    overflow: hidden;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    font-family: inherit;
+    z-index: 1;
+    margin: auto;
+    height: 50px;
+}
+.button3:hover {
+    background-color: #676EFFFF;
+    color: white;
+}
+.janee{
+    text-align: center;
+    display: block;
+}
+
+textarea {
+    margin: auto; 
+    resize: none;
+    background-color: #23232F;
+    border: 2px solid #676EFFFF;
+    border-radius: .3em;
+}
+
+textarea::placeholder {
+    color: white;
+}
