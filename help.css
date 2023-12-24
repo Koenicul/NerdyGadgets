@@ -86,3 +86,15 @@ input{
     text-align: center;
     display: block;
 }
+
+textarea {
+    margin: auto; 
+    resize: none;
+    background-color: #23232F;
+    border: 2px solid #676EFFFF;
+    border-radius: .3em;
+}
+
+textarea::placeholder {
+    color: white;
+}

@@ -78,15 +78,15 @@ function getVoorraadTekst($actueleVoorraad) {
             <?php
             if (isset($_SESSION['user_email'])) {
                 print('
-                        <li>
-                            <div class="dropdown">
-                                <a href="javascript:dropDownFunc()" class="dropbtn HrefDecoration"><i class="fas fa-solid fa-user"></i></i> Account</a>
-                                <div id="myDropdown" class="dropdown-content">
-                                    <a href="account.php" class="HrefDecoration">Gegevens</a>
-                                    <a onclick="logout()" href="logout.php" class="HrefDecoration">Uitloggen</a>
-                                </div>
+                    <li>
+                        <div class="dropdown">
+                            <a href="javascript:dropDownFunc()" class="dropbtn HrefDecoration" style="line-height: normal;"><i class="fas fa-solid fa-user"></i> Account</a>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="account.php" style="line-height: normal; class="HrefDecoration">Gegevens</a>
+                                <a href="logout.php" onclick="logout()" style="line-height: normal;"  class="HrefDecoration">Uitloggen</a>
                             </div>
-                        </li>'
+                        </div>
+                    </li>'
                 );
             } else {
                 print('

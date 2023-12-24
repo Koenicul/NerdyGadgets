@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $user = $authentication->login($_POST['emails'], $_POST['psw']);
         if ($user) {
-            print_r($user);
             $_SESSION['user_email'] = $_POST['emails'];
             $_SESSION['user_psw'] = $_POST['psw'];
 
