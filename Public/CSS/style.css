@@ -1,4 +1,3 @@
-button:focus {outline:0;}
 html {
     background-color: rgb(35, 35, 47) !important;
 }
@@ -438,13 +437,10 @@ ul#ul-class-price li {
 .carousel-inner img {
     width: 100%;
     height: 100%;
-
 }
 #ImageCarousel {
     width: 300px;
     height: 300px;
-    z-index: 0 !important;
-
 }
 .carousel-control-next-icon:hover,
 .carousel-control-prev-icon:hover {
@@ -540,15 +536,16 @@ ul#ul-class-price li {
 
 }
 
+/** button css einde  **/
 
-
-/** button css einde **/
+/** begin container button **/
 .button-container {
     text-align: center;
-    margin-top: 40px !important; /* Je kunt deze marge aanpassen aan jouw behoeften */
-
+    margin-top: 40px !important; 
 }
+/** einde container button **/
 
+/** button css start winkelwagen **/
 .button1 {
     color: #ffffff;
     border: 2px solid #676EFFFF;
@@ -585,37 +582,51 @@ ul#ul-class-price li {
     background-color: #676EFFFF;
     color: white;
 }
-/** winkelwagen leeg tekst begin **/
+/** einde button css einde winkelwagen **/
 
+/** begin winkelwagen leeg tekst begin **/
 .leeg{
     text-align: center;
     font-weight: 500;
 }
-/** winkelwagen leeg tekst einde **/
+/** einde winkelwagen leeg tekst einde **/
 
+/** begin overzicht schema winkelwagen **/
 .achter{
     border:  solid 1px white;
     border-radius: 15px;
     padding: 15px;
-    margin-top: 2%;
+    position: sticky;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 220px;
+    display: block;
 }
+/** einde overzicht schema winkelwagen **/
 .trans{
     margin-bottom: 10px;
 }
 hr.solid {
     border-top: 3px solid #ffffff;
 }
+/** egin nummer input winkelwagen **/
 .numb{
     width: 70px !important;
 }
+/** einde nummer input winkelwagen **/
 .HrefDecorations{
     margin-left: 10px;
 }
+
+/** begin vooraad winkelwagen **/
 .voorraad{
     position: absolute;
     bottom: 0;
     left: 250px;
 }
+/** einde vooraad winkelwagen **/
+
+/* Begin popup vederwinkelen of naar winkelwagen */
 .modal-content {
     border-radius: 25px !important;
 }
@@ -626,133 +637,4 @@ hr.solid {
     color: white !important;
     opacity: 100% !important;
 }
-.form-control{
-    background: #23232FFF !important;
-    color: white !important;
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border-radius: 0px !important;
-    border: none !important;
-    border-bottom: 2px solid white !important;
-    outline: none !important;
-    box-shadow: none !important;
-}
-.achters{
-    border:  solid 1px white;
-    border-radius: 15px;
-    padding: 15px;
-    margin: auto;
-    width: 25%;
-    margin-top: 2%;
-}
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active{
-    -webkit-box-shadow: 0 0 0 30px #23232FFF inset !important;
-}
-input:-webkit-autofill{
-    -webkit-text-fill-color: white !important;
-}
-#ReviewDiv {
-    background-color: rgba(35, 40, 47, 0.8);
-    margin: auto;
-    width: 70%;
-    padding: 10px;
-    border: 1px solid;
-    font-family: pt-sans, sans-serif;
-    font-size: 20px;
-
-}
-#ReviewContent {
-    margin: auto;
-    padding-top: 20%;
-}
-
-.reviewbutton {
-    color: #ffffff;
-    border: 2px solid #676eff;
-    padding: 0.6em 1.5em;
-    background-color: transparent;
-    border-radius: .3em;
-    overflow: hidden;
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 15px;
-    font-family: inherit;
-    z-index: 1;
-    margin: 0;
-    width: 25%;
-    height: 10%;
-    position: relative;
-    left: 75%;
-    margin-top: 2%;
-}
-
-.reviewbutton:hover{
-    background-color: #676EFFFF;
-    color: white;
-}
-
-.checkbox {
-    width: 20px;
-    height: 20px;
-    position: relative;
-    top: 5px;
-}
-
-.checkboxtext{
-    position: relative;
-}
-
-.reviewtext {
-    position: relative;
-    top: 15px;
-    width: 80%;
-    height: 200px;
-    resize: none;
-}
-
-#reviewbox {
-    border-bottom: 1px solid #fff;
-}
-
-.midText {
-    font-weight: 500;
-    font-size: 20px;
-    font-family: inherit;
-}
-.center{
-    border: 1px solid rebeccapurple;
-    text-align: center;
-}
-/* Login */
-.fas {
-    color: #676EFF;
-}
-button{
-    z-index: 0 !important;
-}
-.feedback {
-    background-color: #676eff;
-    color: white;
-    padding: 10px 20px;
-    border-radius: 4px;
-    border-color: #676eff;
-    z-index: 9999;
-}
-
-.feedback:hover {
-    background-color: #4951c4;
-    border-color: #4951c4;
-}
-
-
-#mybutton {
-    position: fixed;
-    bottom: 14px;
-    right: 10px;
-    z-index: 999;
-}
+/* Einde popup vederwinkelen of naar winkelwagen */
