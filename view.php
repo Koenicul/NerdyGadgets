@@ -1,4 +1,9 @@
 <!-- dit bestand bevat alle code voor de pagina die één product laat zien -->
+<head>
+    <!--- refresh temperature --->
+    <script type="text/javascript"
+            src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+</head>
 <?php
 include __DIR__ . "/header.php";
 include "cartfuncties.php";
@@ -14,6 +19,39 @@ if (isset($_POST['reviewpost'])){
     }
     postReview($StockItem["StockItemID"], $databaseConnection, $_POST['comment'], $aanbeveling, $_SESSION["user_email"]);
 }
+
+if (isset($_POST['addToCart'])) {
+    addProductToCart($StockItem['StockItemID']);
+    print("
+        <div class='modal fade' id='myModal' role='dialog'>
+        <div class='modal-dialog'>
+            <!-- Modal content-->
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h4 class='modal-title'>Het artikel is toegevoegd aan het winkelmandje</h4>
+                    <button type='button' class='close' data-dismiss='modal'>&times;</button>
+                </div>
+                <div class='modal-body'>
+                    <p>". $StockItem['StockItemName'] . "</p>
+                </div>
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-defaul' style='color: white' data-dismiss='modal'>Verder winkelen</button>
+                    <button class='button1' onclick='window.location.href=\"cart.php\"'>Naar winkelwagen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <script type='text/javascript'>
+            $(window).on('load',function(){
+                $('#myModal').modal('show');
+            });
+        </script>
+    ");
+    ?>
+
+    
+<?php } 
 ?>
 
 <div id="CenteredContent">
@@ -110,6 +148,23 @@ if (isset($_POST['reviewpost'])){
             <h3>Artikel beschrijving</h3>
             <p><?php print $StockItem['SearchDetails']; ?></p>
 
+            <?php  if ($StockItem['IsChillerStock'] == 1) { //###?>
+
+                <p id="Temperatuur"></p>
+                <script>
+                    const element = document.getElementById("Temperatuur")
+
+                    function fetchData() {
+                        fetch('Temperatuur.php')
+                            .then(response => response.text())
+                            .then(data => {
+                                element.innerHTML = "Temperatuur: " + data + " °C";
+                            });
+                    }
+                    setInterval(fetchData, 3000);
+                </script>
+            <?php }//###?>
+
         </div>
         <div id="StockItemSpecifications">
             <h3>Artikel specificaties</h3>
@@ -154,44 +209,22 @@ if (isset($_POST['reviewpost'])){
     } ?>
 </div>
 
-<div class="container">
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Het artikel is toegevoegd aan het winkelmandje</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p><?php print $StockItem['StockItemName'] ?></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" style="color: white" data-dismiss="modal">Verder winkelen</button>
-                    <button class="button1" onclick="window.location.href='cart.php'">Naar winkelwagen</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <?php
 $ingelogd = true;
-if (isset($_SESSION['user_email'])){
-    ?>
+if (isset($_SESSION['user_email'])){ ?>
     <div id="ReviewContent">
         <div id="ReviewDiv">
             <h3>Review plaatsen</h3>
-            <form method="post"">
-            <label>
-                Ik beveel dit product aan: <input type="checkbox" class="checkbox" id="aanbeveling" name="aanbeveling" value="1">
-            </label>
-            <textarea class="reviewtext" name="comment" required></textarea>
-            <input type="submit" class="reviewbutton" name="reviewpost">
+            <form method="post">
+            <label>Ik beveel dit product aan: </label>
+            <input type="checkbox" class="checkbox" id="aanbeveling" name="aanbeveling" value="1">
+            
+            <textarea class="reviewtext" name="comment" placeholder="Leg uw mening uit..." required></textarea>
+            <input type="submit" class="reviewbutton" name="reviewpost" value="Plaatsen">
             </form>
         </div>
     </div>
-<?php }?>
+<?php } ?>
 
 <script>
     if ( window.history.replaceState ) {
@@ -199,50 +232,39 @@ if (isset($_SESSION['user_email'])){
     }
 </script>
 
-<?php
-if (isset($_POST['addToCart'])) {
-    addProductToCart($StockItem['StockItemID']);
-    ?>
-    <script type="text/javascript">
-        $(window).on('load',function(){
-            $('#myModal').modal('show');
-        });
-    </script>
-<?php }
-?>
 <div id="CenteredContent">
-    <?php
-    $reviews = getReview($StockItem["StockItemID"], $databaseConnection);
-    if ($reviews != array()) {
-        print("<h2 id='reviewbox' style='padding: 15px;'>Reviews van dit product</h2>");
-    }else{
-        print("<h2 id='reviewbox' style='padding: 15px;'>Dit product heeft nog geen reviews.</h2>");
-    }
+<?php
+$reviews = getReview($StockItem["StockItemID"], $databaseConnection);
+if ($reviews != array()) {
+    print("<h2 id='reviewbox' style='padding: 15px;'>Reviews van dit product</h2>");
+}else{
+    print("<h2 id='reviewbox' style='padding: 15px;'>Dit product heeft nog geen reviews.</h2>");
+}
 
-    foreach ($reviews as $review) {
-        $naam = getCustomer($review['Email'], $databaseConnection);
-        $contents = $review['Contents'];
-        $aanbeveling = $review['Recommendation'];
-        $datum = $review['PostDate'];
-        ?>
+foreach ($reviews as $review) {
+    $naam = getCustomer($review['Email'], $databaseConnection);
+    $contents = $review['Contents'];
+    $aanbeveling = $review['Recommendation'];
+    $datum = $review['PostDate'];
+?>
         <div id="reviewbox">
-            <h1 class="StockItemID">Door: <?php print($naam[0]['fullname']); ?></h1>
-            <?php
-            if ($aanbeveling == 1){
-                echo "<p class='midText'>Ik beveel dit product aan.</p>";
-            }else{
-                echo "<p class='midText'>Ik beveel dit product niet aan.</p>";
-            }
-            echo "Datum: $datum <br>";
-            echo "<br>$contents <br>";
-            echo "<br><br>";
-            ?>
-        </div>
+        <h1 class="StockItemID">Door: <?php print($naam[0]['fullname']); ?></h1>
         <?php
+    if ($aanbeveling == 1){
+        echo "<p class='midText'>Ik beveel dit product aan.</p>";
+    }else{
+        echo "<p class='midText'>Ik beveel dit product niet aan.</p>";
     }
-
-    //
+    echo "Datum: $datum <br>";
+    echo "<br>$contents <br>";
+    echo "<br><br>";
     ?>
+        </div>
+    <?php
+}
+
+//
+?>
 </div>
 <?php
 //

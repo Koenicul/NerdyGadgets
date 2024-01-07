@@ -25,13 +25,13 @@ function getVoorraadTekst($actueleVoorraad) {
     <script src="Public/JS/bootstrap.min.js"></script>
     <script src="Public/JS/popper.min.js"></script>
     <script src="Public/JS/resizer.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-ukR6L5O5fQnyLbZc2cjAyMyYG1pxiS5cFXEdJ9XDnt+5Qti52BtXq3bySvAMvd8WqX1VQDElItWQuLV0d8UPRg==" crossorigin="anonymous" />
 
     <!-- Style sheets-->
     <link rel="stylesheet" href="Public/CSS/style.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="Public/CSS/typekit.css">
     <link rel="stylesheet" href="Public/CSS/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="Background">
@@ -78,29 +78,53 @@ function getVoorraadTekst($actueleVoorraad) {
             <?php
             if (isset($_SESSION['user_email'])) {
                 print('
-                        <li>
-                            <a onclick="logout()" href="logout.php" class="HrefDecoration"><i class="fas fa-sign-out-alt shopping-cart"></i> Uitloggen</a>
-                        </li>'
+                    <li>
+                        <div class="dropdown">
+                            <a href="javascript:dropDownFunc()" class="dropbtn HrefDecoration" style="line-height: normal;"><i class="fas fa-solid fa-user"></i> Account</a>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="account.php" style="line-height: normal; class="HrefDecoration">Gegevens</a>
+                                <a href="logout.php" onclick="logout()" style="line-height: normal;"  class="HrefDecoration">Uitloggen</a>
+                            </div>
+                        </div>
+                    </li>'
                 );
             } else {
                 print('
                         <li>
-    <a href="login.php" class="HrefDecoration"><i class="fas fa-sign-in-alt shopping-cart"></i> Inloggen</a>
-</li>'
+                            <a href="login.php" class="HrefDecoration"><i class="fas fa-sign-in-alt shopping-cart"></i> Inloggen</a>
+                        </li>'
                 );
             }
             ?>
-        </ul>
-
+        </ul>                
 
 <!-- einde code voor US3 zoeken -->
+        <script>
+            function dropDownFunc() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
 
+            // Close the dropdown menu if the user clicks outside of it
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    var i;
+                    for (i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+        </script>
     </div>
     <div class="row" id="Content">
         <div class="col-12">
             <div id="SubContent">
 
-                <?php
+
+<?php
                 $current_page = basename($_SERVER['PHP_SELF']);
                 ?>
 

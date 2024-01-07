@@ -60,6 +60,7 @@ function getStockItem($id, $databaseConnection) {
             StockItemName,
             QuantityOnHand,
             SearchDetails, 
+            IsChillerStock,
             (CASE WHEN (RecommendedRetailPrice*(1+(TaxRate/100))) > 50 THEN 0 ELSE 6.95 END) AS SendCosts, MarketingComments, CustomFields, SI.Video,
             (SELECT ImagePath FROM stockgroups JOIN stockitemstockgroups USING(StockGroupID) WHERE StockItemID = SI.StockItemID LIMIT 1) as BackupImagePath   
             FROM stockitems SI 
@@ -110,13 +111,14 @@ function getStockItemImage($id, $databaseConnection) {
 //    mysqli_stmt_bind_param($Statement, "ssssi", $name, $city, $street, $postalcode, $houseNumber);
 //    mysqli_stmt_execute($Statement);
 //}
-function insertIntoOrder($databaseConnection) {
-    $customerID = 1;
+function insertIntoOrder($databaseConnection, $customerID) {
+    $datum = date('Y-m-d');
+    $datumTijd = date('Y-m-d H:i:s');
     $Query = "INSERT INTO orders(customerid, salespersonpersonid, contactpersonid, orderdate, expecteddeliverydate, isundersupplybackordered, lasteditedby, lasteditedwhen)
-VALUES(?, 13, 2247, now(), now(), 1, 11, now())";
+VALUES(?, 13, 2247, ?, ?, 1, 11, ?)";
 //1 moet klantennummer van Joshua worden
     $Statement = mysqli_prepare($databaseConnection, $Query);
-    mysqli_stmt_bind_param($Statement, 'i', $customerID);
+    mysqli_stmt_bind_param($Statement, 'isss', $customerID, $datum, $datum, $datumTijd);
     mysqli_stmt_execute($Statement);
     return mysqli_insert_id($databaseConnection);
 }
@@ -167,4 +169,42 @@ function getCustomer($email, $databaseConnection) {
     $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
 
     return $R;
+}
+
+function postTicket($databaseConnection, $email, $topic, $description, $name) {
+
+    $Query = "INSERT INTO support_tickets (EmailSender, EmailAddress, EmailSubject, EmailBody)
+              VALUES (?, ?, ?, ?)";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, 'ssss', $name, $email, $topic, $description);
+    mysqli_stmt_execute($Statement);
+}
+function getCustomerID($email, $databaseConnection): int {
+
+    $Query = "SELECT customerid
+            FROM customers
+            WHERE PrimaryContactPersonID in (SELECT personid FROM people WHERE EmailAddress = ?);";
+
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_bind_param($Statement, 's', $email);
+    mysqli_stmt_execute($Statement);
+    $R = mysqli_stmt_get_result($Statement);
+    $R = mysqli_fetch_all($R, MYSQLI_ASSOC);
+
+    return $R[0]['customerid'];
+}
+
+function getTemperature($databaseConnection) {
+    $Query = "
+                SELECT Temperature FROM coldroomtemperatures
+                ORDER BY coldroomtemperatureid DESC
+                LIMIT 1;
+    ";
+    $Statement = mysqli_prepare($databaseConnection, $Query);
+    mysqli_stmt_execute($Statement);
+    $Result = mysqli_stmt_get_result($Statement);
+    $Temperature = mysqli_fetch_assoc($Result);
+    return $Temperature['Temperature'];
+
 }
