@@ -13,7 +13,40 @@ if (isset($_POST['reviewpost'])){
         $aanbeveling = 0;
     }
     postReview($StockItem["StockItemID"], $databaseConnection, $_POST['comment'], $aanbeveling, $_SESSION["user_email"]);
-}
+} ?>
+
+<div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Het artikel is toegevoegd aan het winkelmandje</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p><?php print $StockItem['StockItemName'] ?></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" style="color: white" data-dismiss="modal">Verder winkelen</button>
+                    <button class="button1" onclick="window.location.href='cart.php'">Naar winkelwagen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+if (isset($_POST['addToCart'])) {
+    addProductToCart($StockItem['StockItemID']);
+    ?>
+    <script type="text/javascript">
+        $(window).on('load',function(){
+            $('#myModal').modal('show');
+        });
+    </script>
+<?php }
 ?>
 
 <div id="CenteredContent">
@@ -109,6 +142,22 @@ if (isset($_POST['reviewpost'])){
         <div id="StockItemDescription">
             <h3>Artikel beschrijving</h3>
             <p><?php print $StockItem['SearchDetails']; ?></p>
+            <?php  if ($StockItem['IsChillerStock'] == 1) { //###?>
+
+                <p id="Temperatuur"></p>
+                <script>
+                    const element = document.getElementById("Temperatuur")
+
+                    function fetchData() {
+                        fetch('Temperatuur.php')
+                            .then(response => response.text())
+                            .then(data => {
+                                element.innerHTML = "Temperatuur: " + data + " °C";
+                            });
+                    }
+                    setInterval(fetchData, 3000);
+                </script>
+            <?php }//###?>
 
         </div>
         <div id="StockItemSpecifications">
@@ -154,27 +203,7 @@ if (isset($_POST['reviewpost'])){
     } ?>
 </div>
 
-<div class="container">
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Het artikel is toegevoegd aan het winkelmandje</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p><?php print $StockItem['StockItemName'] ?></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" style="color: white" data-dismiss="modal">Verder winkelen</button>
-                    <button class="button1" onclick="window.location.href='cart.php'">Naar winkelwagen</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <?php
 $ingelogd = true;
 if (isset($_SESSION['user_email'])){ ?>
@@ -186,7 +215,9 @@ if (isset($_SESSION['user_email'])){ ?>
                 Ik beveel dit product aan: <input type="checkbox" class="checkbox" id="aanbeveling" name="aanbeveling" value="1">
             </label>
             <textarea class="reviewtext" name="comment" required></textarea>
+            <div>
                 <input type="submit" class="reviewbutton" name="reviewpost">
+            </div>
             </form>
         </div>
     </div>
@@ -199,15 +230,15 @@ if (isset($_SESSION['user_email'])){ ?>
 </script>
 
 <?php
-if (isset($_POST['addToCart'])) {
-    addProductToCart($StockItem['StockItemID']);
-    ?>
-    <script type="text/javascript">
-        $(window).on('load',function(){
-            $('#myModal').modal('show');
-        });
-    </script>
-<?php }
+//if (isset($_POST['addToCart'])) {
+//    addProductToCart($StockItem['StockItemID']);
+//    ?>
+<!--    <script type="text/javascript">-->
+<!--        $(window).on('load',function(){-->
+<!--            $('#myModal').modal('show');-->
+<!--        });-->
+<!--    </script>-->
+<?php //}
 ?>
 <div id="CenteredContent">
 <?php
