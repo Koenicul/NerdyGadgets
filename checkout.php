@@ -10,7 +10,7 @@ $database = new Database();
 
 $authentication = new Authentication($database->connection);
         
-if (isset($_POST["submit"]) && isset($_POST["bank"])) {
+if (isset($_POST["submit"]) && isset($_POST["bank"]) && $_POST["g-recaptcha-response"] != "") {   
     $cart = array();
     saveCart($cart);
     $_SESSION["couponCode"] = 0;
@@ -23,7 +23,6 @@ if (isset($_POST["submit"]) && isset($_POST["bank"])) {
         decrementStockitems($id, $databaseConnection, $quantity);
         insertIntoOrderLine($id, $quantity, $databaseConnection, $order);
     }
-
 
     print '<meta http-equiv="refresh" content="0; url=ideal.php">';
 }
@@ -61,10 +60,15 @@ if (isset($_POST["submit"]) && isset($_POST["bank"])) {
                     <option>Triodos Bank</option>
                 </select>
             </div>
+
+            <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+
             <input class="button2" type="submit" name="submit" value="Plaatsen Bestelling">
         </div>
     </div>
 </form>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
 
 <?php
 
